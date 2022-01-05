@@ -43,6 +43,8 @@
 	<table align="center">
 		<tr>
 			<td align="right">
+				<input id="addRow" type="button" value="青眠啊">
+			<input id="deleteRow" type="button" value="青昏力">
 			<input id="submit" type="button" value="累己">
 			</td>
 		</tr>
