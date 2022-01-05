@@ -59,7 +59,12 @@ public class boardServiceImpl implements boardService{
 	}
 	
 	@Override
-	public int boardDelete(BoardVo boardVo) throws Exception{
+	public int boardDelete(String boardType, int boardNum) throws Exception{
+		BoardVo boardVo = new BoardVo();
+		//Dao에서 sql session이용할 때 인자가 한개만 받을 수 있어서 여기서 boardVo로 합친 것.
+		boardVo.setBoardType(boardType);
+		boardVo.setBoardNum(boardNum);
+		
 		return boardDao.boardDelete(boardVo);
 	}
 	

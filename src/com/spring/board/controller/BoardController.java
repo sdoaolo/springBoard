@@ -104,11 +104,9 @@ public class BoardController {
 			,@PathVariable("boardType")String boardType
 			,@PathVariable("boardNum")int boardNum) throws Exception{
 		
-	//	List<BoardVo> boardList = new ArrayList<BoardVo>();
 		
 		BoardVo boardVo = new BoardVo();
 		boardVo = boardService.selectBoard(boardType,boardNum);
-		//boardList = boardService.SelectBoardList(pageVo);
 		
 		//jsp로 데이터 전달
 		model.addAttribute("boardType", boardType);
@@ -129,9 +127,9 @@ public class BoardController {
 		CommonUtil commonUtil = new CommonUtil();
 		
 		int resultCnt = boardService.boardUpdate(boardVo);
-		//update는 삽입된 행의 개수를 반환하므로 0일수 있다. 
 		
-		result.put("success", (resultCnt >= 0)?"Y":"N");
+		//update는 삽입된 행의 개수를 반환하므로 0일수 있다. 
+		result.put("success", (resultCnt > 0)?"Y":"N");
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
 		
 		System.out.println("callbackMsg::"+callbackMsg);
@@ -140,15 +138,22 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardDelete.do", method = RequestMethod.GET)
+	@ResponseBody 
 		public String boardDelete(Locale locale, Model model
 				,@PathVariable("boardType")String boardType
 				,@PathVariable("boardNum")int boardNum) throws Exception{
-					
-			BoardVo boardVo = new BoardVo();
-			boardVo = boardService.selectBoard(boardType,boardNum);
-			
-			boardService.boardDelete(boardVo);
-	
- 			return "board/boardList";
-		}
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		int resultCnt = boardService.boardDelete(boardType,boardNum);
+		
+		//delete는 삭제된 행의 개수를 반환하므로 실패했을 때 0이고, 성공시 무조건 양수이다. 따라서 0보다 클 때 Y를 put
+		result.put("success", (resultCnt > 0)?"Y":"N");
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("callbackMsg::"+callbackMsg);
+		
+		return callbackMsg;
+	}
 }

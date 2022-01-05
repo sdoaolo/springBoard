@@ -7,6 +7,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>boardView</title>
 </head>
+<script  type="text/javascript">
+$j(document).ready(function(){
+	
+	$j("#delete").on("click",function(){
+		//JQUERY에서 따로 값 선택해서 넣어주기 / 달러는 문자열영역에 다 사용할 수 있는데 그안에 
+		$j.ajax({
+		    url : "/board/${board.boardType}/${board.boardNum}/boardDelete.do",
+		    dataType: "json",
+		    type: "GET",
+		    success: function(data, textStatus, jqXHR)
+		    {				
+				location.href = "/board/boardList.do"; 
+		    },
+		    error: function (jqXHR, textStatus, errorThrown)
+		    {
+		    	alert("실패");
+		    }
+		});
+	});
+});
+</script>
 <body>
 <table align="center">
 	<tr>
@@ -42,9 +63,9 @@
 		<td align="right">
 			<a href="/board/boardList.do">List</a>
 			<a href = "/board/${board.boardType}/${board.boardNum}/boardUpdate.do?pageNo=${pageNo}">update</a>
-			<a href="/board/${board.boardType}/${board.boardNum}/boardDelete.do?pageNo=${pageNo}">delete</a>
+			<a id="delete" href="/board/${board.boardType}/${board.boardNum}/boardDelete.do?pageNo=${pageNo}">delete</a>
 		</td>
 	</tr>
-</table>	
+</table>
 </body>
 </html>
