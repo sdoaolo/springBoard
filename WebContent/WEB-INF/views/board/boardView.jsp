@@ -17,7 +17,10 @@ $j(document).ready(function(){
 		    dataType: "json",
 		    type: "GET",
 		    success: function(data, textStatus, jqXHR)
-		    {				
+		    {	
+		    	if(data.success == "N"){
+		    		alert("이미 삭제된 게시글입니다.")
+		    	}
 				location.href = "/board/boardList.do"; 
 		    },
 		    error: function (jqXHR, textStatus, errorThrown)
@@ -63,7 +66,7 @@ $j(document).ready(function(){
 		<td align="right">
 			<a href="/board/boardList.do">List</a>
 			<a href = "/board/${board.boardType}/${board.boardNum}/boardUpdate.do?pageNo=${pageNo}">update</a>
-			<a id="delete" href="/board/${board.boardType}/${board.boardNum}/boardDelete.do?pageNo=${pageNo}">delete</a>
+			<input id="delete" type="button" value="삭제">
 		</td>
 	</tr>
 </table>

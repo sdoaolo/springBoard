@@ -91,6 +91,11 @@ public class BoardController {
 		String[] strTitle = boardVo.getBoardTitle().split(",");
 		String[] strComment = boardVo.getBoardComment().split(",");
 		
+		System.out.println(strTitle);
+		System.out.println(strComment);
+		//check : have null
+		
+		
 		int num = strTitle.length;
 		int check = 0;
 		//글 개수만큼 (length) board 객체 생성하고, 각 title과 comment 넣어줌. 그리고  boardList에 바로 추가
@@ -113,7 +118,7 @@ public class BoardController {
 	}
 	
 	///update
-	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate.do", method  = RequestMethod.GET)
 	public String boardUpdate(Locale locale, Model model,PageVo pageVo
 			,@PathVariable("boardType")String boardType
 			,@PathVariable("boardNum")int boardNum) throws Exception{
