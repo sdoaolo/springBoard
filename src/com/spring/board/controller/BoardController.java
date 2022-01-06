@@ -87,12 +87,26 @@ public class BoardController {
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
+	
+		String[] strTitle = boardVo.getBoardTitle().split(",");
+		String[] strComment = boardVo.getBoardComment().split(",");
 		
-		int resultCnt = boardService.boardInsert(boardVo);
+		int num = strTitle.length;
+		int check = 0;
+		//글 개수만큼 (length) board 객체 생성하고, 각 title과 comment 넣어줌. 그리고  boardList에 바로 추가
+		for(int i=0;i<num;i++) {
+			BoardVo Bvo= new BoardVo();
+			Bvo.setBoardTitle(strTitle[i]);
+			Bvo.setBoardComment(strComment[i]);
+			
+			int resultCnt =	boardService.boardInsert(Bvo);
+			check += resultCnt;		//insert성공시 1이라서
+		}
 		
-		result.put("success", (resultCnt > 0)?"Y":"N");
+		
+		result.put("success", (check == num)?"Y":"N");
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
-		
+
 		System.out.println("callbackMsg::"+callbackMsg);
 		
 		return callbackMsg;
@@ -103,7 +117,7 @@ public class BoardController {
 	public String boardUpdate(Locale locale, Model model,PageVo pageVo
 			,@PathVariable("boardType")String boardType
 			,@PathVariable("boardNum")int boardNum) throws Exception{
-		
+		 
 		
 		BoardVo boardVo = new BoardVo();
 		boardVo = boardService.selectBoard(boardType,boardNum);
@@ -156,4 +170,5 @@ public class BoardController {
 		
 		return callbackMsg;
 	}
+	
 }

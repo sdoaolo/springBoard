@@ -34,9 +34,33 @@
 			    }
 			});
 		});
-	});
+		
+			
+		
+		var addText = '<tr>'+
+			'<td width="120" align="center">'+
+			'Title'+
+			'</td>'+
+			'<td width="400">'+
+			'<input name="boardTitle" type="text" size="50" value="${board.boardTitle}">'+ 
+			'</td>'+
+		'</tr>'	+
+		'<tr name="trComment">'+
+			'<td height="300" align="center">'+
+			'Comment'+
+			'<input type="checkbox" name="checkList">'+
+			'</td>'+
+			'<td valign="top">'+
+			'<textarea name="boardComment"  rows="20" cols="55" value="${board.boardComment}"/>'+
+			'</td>'+
+		'</tr>';
 	
-
+		$j("#addRow").on("click",function(){
+			var trHtml = $j("tr[name=trComment]:last");
+			trHtml.after(addText);
+		});
+		
+	});
 </script>
 <body>
 <form class="boardWrite">
@@ -50,7 +74,7 @@
 		</tr>
 		<tr>
 			<td>
-				<table border ="1"> 
+				<table id="boardTbl"' border ="1"> 
 					<tr>
 						<td width="120" align="center">
 						Title
@@ -59,7 +83,7 @@
 						<input name="boardTitle" type="text" size="50" value="${board.boardTitle}"> 
 						</td>
 					</tr>
-					<tr>
+					<tr name="trComment">
 						<td height="300" align="center">
 						Comment
 						</td>
@@ -67,6 +91,7 @@
 						<textarea name="boardComment"  rows="20" cols="55">${board.boardComment}</textarea>
 						</td>
 					</tr>
+
 					<tr>
 						<td align="center">
 						Writer
