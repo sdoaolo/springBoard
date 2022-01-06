@@ -10,10 +10,22 @@
 <script type="text/javascript">
 	$j(document).ready(function(){
 		
+		
 		$j("#submit").on("click",function(){
 			
 			var $frm = $j('.boardWrite :input');
 			var param = $frm.serialize();
+			
+			console.log("param",param);
+			var splitParam = param.split('&');
+			//console.log("len : " + splitParam.length);
+			
+			for(var i = 0 ; i< splitParam.length;i++){
+				if(splitParam[i] == "boardTitle=" || splitParam[i] == "boardComment=" ){
+					alert("ºóÄ­ ¾øÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+					return false;
+				}
+			}
 			
 			$j.ajax({
 			    url : "/board/boardWriteAction.do",
@@ -34,8 +46,6 @@
 			    }
 			});
 		});
-		
-			
 		
 		var addText = '<tr>'+
 			'<td width="120" align="center">'+
