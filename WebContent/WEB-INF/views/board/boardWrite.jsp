@@ -72,29 +72,20 @@
 		
 		
 		$j("#deleteRow").on("click",function(){
-			
-			//하나도 체크 안하고 삭제 버튼 눌렀을 땐 알림을 주면 좋을듯!!
 			var checkedNum = $j("input:checkbox[name=checkList]:checked").length
 			
-			if(checkedNum == 0 ) {
+			if(checkedNum == 0 ) { //하나도 체크 안하고 삭제 버튼 눌렀을 땐 알림을 주면 좋을듯!!
 				alert("삭제할 행을 체크하세요");
 				return;
 			}
 			
 			$j("input:checkbox[name=checkList]:checked").each(function(i,val){
-				console.log("val = ", val.parentElement.parentElement);
-				console.log("val = ", val.parentElement.parentElement.nextElementSibling);
 				var titleTag = val.parentElement.parentElement;
 				var commentTag =val.parentElement.parentElement.nextElementSibling;
 				$j(titleTag).remove();
 				$j(commentTag).remove();
 			});
-			
-			console.log("checkNum : ",checkedNum);
-			
-			
 		});
-		
 	});
 </script>
 <body>
@@ -110,7 +101,18 @@
 		<tr>
 			<td>
 				<table id="boardTbl"' border ="1"> 
-					<set>
+					<tr>
+						<td width="120" align="center">
+						Type
+						</td>
+						<td width="400">
+							<select>
+								<c:forEach items="${menuList}" var="list">
+									<option> ${list.menuName} </option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
 					<tr>
 						<td width="120" align="center">
 						Title
@@ -127,7 +129,7 @@
 						<textarea name="boardComment"  rows="20" cols="55">${board.boardComment}</textarea>
 						</td>
 					</tr>
-					</set>
+					
 					<tr>
 						<td align="center">
 						Writer
@@ -135,6 +137,7 @@
 						<td>
 						</td>
 					</tr>
+					
 				</table>
 			</td>
 		</tr>

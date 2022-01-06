@@ -9,6 +9,14 @@
     	<result property="boardComment" column="BOARD_COMMENT"/>
     </resultMap>
     
+    
+    <resultMap type="com.spring.board.vo.MenuVo" id="menuVo">
+    	<result property="menuType" 	column="CODE_TYPE"/>
+    	<result property="menuId" 	column="CODE_ID"/>
+    	<result property="menuName" 	column="CODE_NAME"/>
+    </resultMap>
+    
+    
     <select id="boardList" parameterType="com.spring.board.vo.PageVo" resultMap="boardVo">
         SELECT 
 		  BOARD_TYPE
@@ -91,5 +99,10 @@
 		WHERE 	BOARD_TYPE = #{boardType}
     	AND 	BOARD_NUM  = #{boardNum}
     </select>
-    
+	
+	<select id="menuList" resultMap="menuVo">
+       select CODE_TYPE, CODE_ID, CODE_NAME
+      from Com_code
+      where CODE_TYPE = 'menu'
+    </select>
 </mapper>

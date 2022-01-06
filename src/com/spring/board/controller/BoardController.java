@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.board.HomeController;
 import com.spring.board.service.boardService;
+import com.spring.board.vo.MenuVo;
 import com.spring.board.vo.BoardVo;
 import com.spring.board.vo.PageVo;
 import com.spring.common.CommonUtil;
@@ -65,7 +66,7 @@ public class BoardController {
 		
 		boardVo = boardService.selectBoard(boardType,boardNum);
 		
-		int page =1;
+		int page = 1;
 		model.addAttribute("boardType", boardType);
 		model.addAttribute("boardNum", boardNum);
 		model.addAttribute("board", boardVo);
@@ -77,7 +78,11 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/boardWrite.do", method = RequestMethod.GET)
 	public String boardWrite(Locale locale, Model model) throws Exception{
-				
+		
+		List<MenuVo> menuList = new ArrayList<MenuVo>();
+		menuList = boardService.SelectMenuList();
+		model.addAttribute("menuList", menuList);
+		
 		return "board/boardWrite";
 	}
 	
@@ -174,6 +179,5 @@ public class BoardController {
 		System.out.println("callbackMsg::"+callbackMsg);
 		
 		return callbackMsg;
-	}
-	
+	}	
 }

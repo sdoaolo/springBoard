@@ -34,6 +34,7 @@
 						Title
 					</td>
 				</tr>
+				
 				<c:forEach items="${boardList}" var="list">
 					<tr>
 						<td align="center">
@@ -53,6 +54,16 @@
 	<tr>
 		<td align="right">
 			<a href ="/board/boardWrite.do">글쓰기</a>
+		</td>
+	</tr>
+	<tr>
+		<td align="left">
+			 <label><input type="checkbox" name="type" value="전체"> 전체</label>
+     		 <label><input type="checkbox" name="type" value="일반"> 일반</label>
+     		 <label><input type="checkbox" name="type" value="Q&A"> Q&A</label>
+     		 <label><input type="checkbox" name="type" value="익명"> 익명</label>
+     		 <label><input type="checkbox" name="type" value="자유"> 자유</label>
+			 <input type="Button" name="typeSearch" value="조회">
 		</td>
 	</tr>
 </table>	

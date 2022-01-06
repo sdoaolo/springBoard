@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.board.dao.BoardDao;
 import com.spring.board.service.boardService;
 import com.spring.board.vo.BoardVo;
+import com.spring.board.vo.MenuVo;
 import com.spring.board.vo.PageVo;
 
 @Service
@@ -68,4 +69,9 @@ public class boardServiceImpl implements boardService{
 		return boardDao.boardDelete(boardVo);
 	}
 	
+	@Override
+	public List<MenuVo> SelectMenuList() throws Exception {
+		// TODO Auto-generated method stub
+		return boardDao.selectMenuList();
+	}
 }

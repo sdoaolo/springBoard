@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.board.dao.BoardDao;
 import com.spring.board.vo.BoardVo;
+import com.spring.board.vo.MenuVo;
 import com.spring.board.vo.PageVo;
 
 @Repository
@@ -24,9 +25,7 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return a;
 	}
-	/**
-	 * 
-	 * */
+
 	@Override
 	public List<BoardVo> selectBoardList(PageVo pageVo) throws Exception {
 		// TODO Auto-generated method stub
@@ -61,5 +60,12 @@ public class BoardDaoImpl implements BoardDao{
 	public int boardDelete(BoardVo boardVo) throws Exception{
 		return sqlSession.delete("board.boardDelete", boardVo);
 	}
+
+	
+	@Override
+	public List<MenuVo> selectMenuList() throws Exception{
+		return sqlSession.selectList("board.menuList");
+	}
+	
 	
 }
