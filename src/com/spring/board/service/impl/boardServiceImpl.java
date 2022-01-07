@@ -74,4 +74,21 @@ public class boardServiceImpl implements boardService{
 		// TODO Auto-generated method stub
 		return boardDao.selectMenuList();
 	}
+	
+	@Override
+	public List<BoardVo> BoardTypeToName(List<BoardVo> boardList, List<MenuVo> menuList) throws Exception{
+		for(int i = 0; i <boardList.size();i++) {
+			for(int k = 0; k<menuList.size(); k++) {
+				//System.out.println("board: " +boardList.get(i).getBoardType().length());
+				//System.out.println("menu: " + menuList.get(k).getMenuId().length());
+				//System.out.println("-------------------------------------------");
+				if(boardList.get(i).getBoardType().equals( menuList.get(k).getMenuId())) {
+					boardList.get(i).setBoardTypeName(menuList.get(k).getMenuName());
+					System.out.println("board: " +boardList.get(i).getBoardType());
+					break;
+				}
+			}
+		}
+		return boardList;
+	}
 }

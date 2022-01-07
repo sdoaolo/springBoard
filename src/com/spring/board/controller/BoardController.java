@@ -52,20 +52,8 @@ public class BoardController {
 		boardList = boardService.SelectBoardList(pageVo);
 		totalCnt = boardService.selectBoardCnt();
 		
-	    //board리스트에서 board.boardType이 meny.getMenuId와 같은지 체크
-		//controller가 아니라 서비스에 넣어야 한다!!!!!!!!!!!!!!!별표 체크체크 밥먹고 돌아와서 하기!
-		for(int i = 0; i <boardList.size();i++) {
-			for(int k = 0; k<menuList.size(); k++) {
-				//System.out.println("board: " +boardList.get(i).getBoardType().length());
-				//System.out.println("menu: " + menuList.get(k).getMenuId().length());
-				//System.out.println("-------------------------------------------");
-				if(boardList.get(i).getBoardType().equals( menuList.get(k).getMenuId())) {
-					boardList.get(i).setBoardTypeName(menuList.get(k).getMenuName());
-					System.out.println("board: " +boardList.get(i).getBoardType());
-					break;
-				}
-			}
-		}
+		//boardTypeName Setting
+		boardList = boardService.BoardTypeToName(boardList, menuList);
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalCnt", totalCnt);
