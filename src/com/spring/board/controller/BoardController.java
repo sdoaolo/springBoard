@@ -55,6 +55,7 @@ public class BoardController {
 		//boardTypeName Setting
 		boardList = boardService.BoardTypeToName(boardList, menuList);
 		
+		model.addAttribute("menuList", menuList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pageNo", page);

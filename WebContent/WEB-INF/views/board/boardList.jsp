@@ -10,8 +10,19 @@
 <script type="text/javascript">
 
 	$j(document).ready(function(){
+		$j("input:checkbox[name=alltype]").change(function(){
+   			if($j("input:checkbox[name=alltype]").is(":checked")){
+   				$j("input:checkbox[name='type']").prop("checked", true);
+   				alert("전체체크");
+    		}else{
+    			$j("input:checkbox[name='type']").prop("checked", false);
+    			alert("전체체크 해제");
+    		}
+		});
 		
-		//$j(td#boardType).html("TESTTYPE");		
+		$j("#typeSearch").on("click",function(){
+			//조회시 list에 type이 맞는 아이들만 전송			
+		});
 	});
 
 </script>
@@ -57,17 +68,20 @@
 		<td align="right">
 			<a href ="/board/boardWrite.do">글쓰기</a>
 		</td>
-	</tr>
+	</tr>	
 	<tr>
-		<td align="left">
-			 <label><input type="checkbox" name="type" value="전체"> 전체</label>
-     		 <label><input type="checkbox" name="type" value="일반"> 일반</label>
-     		 <label><input type="checkbox" name="type" value="Q&A"> Q&A</label>
-     		 <label><input type="checkbox" name="type" value="익명"> 익명</label>
-     		 <label><input type="checkbox" name="type" value="자유"> 자유</label>
-			 <input type="Button" name="typeSearch" value="조회">
-		</td>
-	</tr>
+      <td align="left"> 
+      	<input type="checkbox" name="alltype" value="전체"> 전체
+          <c:forEach items="${menuList}" var="menuList" >
+          	<input type="checkbox" name="type" value=${menuList.menuName}>   ${menuList.menuName}
+          </c:forEach>
+          
+          <input type="Button" id="typeSearch" value="조회">
+      </td>
+   </tr>
 </table>	
+
+	
+			
 </body>
 </html>
