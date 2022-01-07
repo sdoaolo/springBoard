@@ -35,6 +35,11 @@
 		      	,COUNT(*) OVER() AS TOTAL_CNT
 			FROM
 				BOARD	
+			<where>
+				<foreach collection="typeList" item="type" separator="or">
+	           	 BOARD_TYPE = #{type}
+	       		</foreach> 
+       		</where>
 		)
 		WHERE NUMROW BETWEEN (#{pageNo}-1)*10 + 1 AND (#{pageNo})*10
     </select>
@@ -45,6 +50,7 @@
 			FROM
 				BOARD	
     </select>
+    
     	
     <select id="boardView" parameterType="com.spring.board.vo.BoardVo" resultMap="boardVo">
     	SELECT
@@ -101,7 +107,9 @@
     </select>
 	
 	<select id="menuList" resultMap="menuVo">
-       select CODE_TYPE, CODE_ID, CODE_NAME
+      select CODE_TYPE
+	      , CODE_ID
+	      , CODE_NAME
       from Com_code
       where CODE_TYPE = 'menu'
     </select>

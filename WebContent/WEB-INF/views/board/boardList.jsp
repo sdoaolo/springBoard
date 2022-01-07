@@ -20,8 +20,39 @@
     		}
 		});
 		
+		
 		$j("#typeSearch").on("click",function(){
-			//조회시 list에 type이 맞는 아이들만 전송			
+			//조회시 list에 type이 맞는 아이들만 전송	
+			
+			
+			//AJAX 로 체크된 애들 컨트롤러에 전송해야함. 
+			
+			// 컨트롤러의 어디로 보내야할까? list로보내야하지
+			
+			var $frm = $j('#menuName :input');
+			var param = $frm.serialize();
+			
+			//어떤 데이터가 가는지 확인해보자.	
+			console.log(param);
+			
+			/*$j.ajax({
+			    url : "/board/boardList.do",
+			    dataType: "json",
+			    type: "GET",
+			    data : param,
+			    success: function(data, textStatus, jqXHR)
+			    {
+					alert("테스트");
+					
+					alert("메세지:"+data.success);
+					
+					location.href = "/board/boardList.do?";
+			    },
+			    error: function (jqXHR, textStatus, errorThrown)
+			    {
+			    	alert("실패");
+			    }
+			});*/
 		});
 	});
 
@@ -70,18 +101,18 @@
 		</td>
 	</tr>	
 	<tr>
-      <td align="left"> 
+      <td align="left" id="menuName"> 
       	<input type="checkbox" name="alltype" value="전체"> 전체
+          <form method="GET" action="/board/boardList.do">
           <c:forEach items="${menuList}" var="menuList" >
-          	<input type="checkbox" name="type" value=${menuList.menuName}>   ${menuList.menuName}
-          </c:forEach>
-          
-          <input type="Button" id="typeSearch" value="조회">
+          	<input type="checkbox" name="type" value=${menuList.menuId}>   ${menuList.menuName}
+          </c:forEach> 
+          <input type="Submit" id="typeSearch" value="조회">
+          </form>
       </td>
    </tr>
 </table>	
 
-	
 			
 </body>
 </html>

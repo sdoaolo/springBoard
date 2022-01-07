@@ -1,5 +1,6 @@
 package com.spring.board.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,19 @@ public class boardServiceImpl implements boardService{
 	@Override
 	public List<BoardVo> SelectBoardList(PageVo pageVo) throws Exception {
 		// TODO Auto-generated method stub
-		
+		//setting : pageVo.setTypelist 
+//	    if(pageVo.getType().contains(",")) {
+	    	String[] typeList = pageVo.getType().split(",");
+	    	 pageVo.setTypeList(typeList);
+//	    }else {
+//	    	List<String> tmp = new ArrayList<String>();
+//	    	tmp.add(pageVo.getType());
+//	    	String[] tmpArray = new String[1];
+//	    	tmp.toArray(tmpArray);
+//	    	pageVo.setTypeList(tmpArray);
+//	    }
 		return boardDao.selectBoardList(pageVo);
+		
 	}
 	
 	@Override
@@ -84,7 +96,7 @@ public class boardServiceImpl implements boardService{
 				//System.out.println("-------------------------------------------");
 				if(boardList.get(i).getBoardType().equals( menuList.get(k).getMenuId())) {
 					boardList.get(i).setBoardTypeName(menuList.get(k).getMenuName());
-					System.out.println("board: " +boardList.get(i).getBoardType());
+					//System.out.println("board: " +boardList.get(i).getBoardType());
 					break;
 				}
 			}

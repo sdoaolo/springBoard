@@ -40,18 +40,18 @@ public class BoardController {
 															
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		List<MenuVo> menuList = new ArrayList<MenuVo>();
-		
+	
 		int page = 1;
 		int totalCnt = 0;
 	
 		if(pageVo.getPageNo() == 0){
 			pageVo.setPageNo(page);
-		}		
-		
+		}		    
+	    
 		menuList = boardService.SelectMenuList();
 		boardList = boardService.SelectBoardList(pageVo);
 		totalCnt = boardService.selectBoardCnt();
-		
+
 		//boardTypeName Setting
 		boardList = boardService.BoardTypeToName(boardList, menuList);
 		
@@ -62,6 +62,7 @@ public class BoardController {
 		
 		return "board/boardList";
 	}
+
 	
 	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardView.do", method = RequestMethod.GET)
 	public String boardView(Locale locale, Model model
