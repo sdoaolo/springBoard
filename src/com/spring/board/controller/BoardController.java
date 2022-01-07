@@ -39,16 +39,33 @@ public class BoardController {
 	public String boardList(Locale locale, Model model,PageVo pageVo) throws Exception{
 															
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
+		List<MenuVo> menuList = new ArrayList<MenuVo>();
 		
 		int page = 1;
 		int totalCnt = 0;
 	
 		if(pageVo.getPageNo() == 0){
 			pageVo.setPageNo(page);
-		}
+		}		
 		
+		menuList = boardService.SelectMenuList();
 		boardList = boardService.SelectBoardList(pageVo);
 		totalCnt = boardService.selectBoardCnt();
+		
+	    //board리스트에서 board.boardType이 meny.getMenuId와 같은지 체크
+		//controller가 아니라 서비스에 넣어야 한다!!!!!!!!!!!!!!!별표 체크체크 밥먹고 돌아와서 하기!
+		for(int i = 0; i <boardList.size();i++) {
+			for(int k = 0; k<menuList.size(); k++) {
+				//System.out.println("board: " +boardList.get(i).getBoardType().length());
+				//System.out.println("menu: " + menuList.get(k).getMenuId().length());
+				//System.out.println("-------------------------------------------");
+				if(boardList.get(i).getBoardType().equals( menuList.get(k).getMenuId())) {
+					boardList.get(i).setBoardTypeName(menuList.get(k).getMenuName());
+					System.out.println("board: " +boardList.get(i).getBoardType());
+					break;
+				}
+			}
+		}
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalCnt", totalCnt);
@@ -109,6 +126,9 @@ public class BoardController {
 			Bvo.setBoardTitle(strTitle[i]);
 			Bvo.setBoardComment(strComment[i]);
 			
+			//boardType에는 code Id가 들어가야하는데 codeId는 jsp에서 List에 menuId라는 변수로 들어가있다. 
+			//따라서 select의 value를 list.menuId로 바로 바꿔주면 된다
+			Bvo.setBoardType(boardVo.getBoardType());
 			int resultCnt =	boardService.boardInsert(Bvo);
 			check += resultCnt;		//insert성공시 1이라서
 		}

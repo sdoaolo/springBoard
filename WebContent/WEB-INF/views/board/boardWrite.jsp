@@ -10,6 +10,11 @@
 <script type="text/javascript">
 	$j(document).ready(function(){
 		
+		//select 데이터 변경 감지 
+		$j("select[name=boardType]").change(function(){
+			  console.log($j(this).val()); //value값 가져오기
+			  console.log($j("select[name=boardType] option:selected").text()); //text값 가져오기
+		});
 		
 		$j("#submit").on("click",function(){
 			
@@ -26,6 +31,10 @@
 					return false;
 				}
 			}
+			
+			
+			
+			
 			
 			$j.ajax({
 			    url : "/board/boardWriteAction.do",
@@ -106,9 +115,9 @@
 						Type
 						</td>
 						<td width="400">
-							<select>
+							<select name="boardType">
 								<c:forEach items="${menuList}" var="list">
-									<option> ${list.menuName} </option>
+									<option value=${list.menuId}> ${list.menuName} </option>
 								</c:forEach>
 							</select>
 						</td>
@@ -147,6 +156,7 @@
 			</td>
 		</tr>
 	</table>
+	
 </form>	
 </body>
 </html>

@@ -23,4 +23,8 @@ public interface boardService {
 	public int boardDelete(String boardType, int boardNum) throws Exception;
 	
 	public List<MenuVo> SelectMenuList() throws Exception ;
+	
+	
+	//이거 밥먹고 와서 하장
+	//public String BoardTypeToName(List<BoardVo> boardVo, List<MenuVo> menuVo) throws Exception;
 }

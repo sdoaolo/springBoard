@@ -10,6 +10,8 @@
 <script type="text/javascript">
 
 	$j(document).ready(function(){
+		
+		//$j(td#boardType).html("TESTTYPE");		
 	});
 
 </script>
@@ -37,8 +39,8 @@
 				
 				<c:forEach items="${boardList}" var="list">
 					<tr>
-						<td align="center">
-							${list.boardType}
+						<td align="center" id="boardType">
+							${list.boardTypeName}
 						</td>
 						<td>
 							${list.boardNum}
