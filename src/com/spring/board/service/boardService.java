@@ -21,7 +21,7 @@ public interface boardService {
 	public int boardUpdate(BoardVo boardVo) throws Exception;
 	
 	public int boardDelete(String boardType, int boardNum) throws Exception;
-	
+	 
 	public List<MenuVo> SelectMenuList() throws Exception ;
 	
 	public List<BoardVo> BoardTypeToName(List<BoardVo> boardVo, List<MenuVo> menuVo) throws Exception;

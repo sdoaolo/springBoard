@@ -32,10 +32,6 @@
 				}
 			}
 			
-			
-			
-			
-			
 			$j.ajax({
 			    url : "/board/boardWriteAction.do",
 			    dataType: "json",
@@ -45,7 +41,7 @@
 			    {
 					alert("작성완료");
 					
-					alert("메세지:"+data.success);
+					alert("메세지:"+data.succ0ess);
 					
 					location.href = "/board/boardList.do?";
 			    },

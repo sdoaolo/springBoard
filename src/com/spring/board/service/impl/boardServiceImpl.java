@@ -28,16 +28,15 @@ public class boardServiceImpl implements boardService{
 	public List<BoardVo> SelectBoardList(PageVo pageVo) throws Exception {
 		// TODO Auto-generated method stub
 		//setting : pageVo.setTypelist 
-//	    if(pageVo.getType().contains(",")) {
-	    	String[] typeList = pageVo.getType().split(",");
-	    	 pageVo.setTypeList(typeList);
-//	    }else {
-//	    	List<String> tmp = new ArrayList<String>();
-//	    	tmp.add(pageVo.getType());
-//	    	String[] tmpArray = new String[1];
-//	    	tmp.toArray(tmpArray);
-//	    	pageVo.setTypeList(tmpArray);
-//	    }
+		
+		// 체크박스가 하나도 체크 안됐거나, 그냥 처음 리스트 불러올 땐  null 값이기 때문에 NullPointerException이 떳었어서 널체크 해줌! 
+		if(pageVo.getType() == null) {
+			pageVo.setType(" a01,a02,a03,a04"); // 이게 맞나...? ㅋㅋ
+		}
+		
+	    String[] typeList = pageVo.getType().split(",");
+	    pageVo.setTypeList(typeList);
+
 		return boardDao.selectBoardList(pageVo);
 		
 	}

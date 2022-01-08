@@ -47,7 +47,12 @@ public class BoardController {
 		if(pageVo.getPageNo() == 0){
 			pageVo.setPageNo(page);
 		}		    
-	    
+	    	
+		System.out.println("_____________________________");
+		System.out.println("getType >> " + pageVo.getType());
+		System.out.println("_____________________________");
+		
+		//pageVo.type에 선택 type 내용이 "a03,a02" 이런 식으로 들어가 있어서... 괜찮았는데
 		menuList = boardService.SelectMenuList();
 		boardList = boardService.SelectBoardList(pageVo);
 		totalCnt = boardService.selectBoardCnt();
@@ -105,6 +110,8 @@ public class BoardController {
 		
 		System.out.println(strTitle);
 		System.out.println(strComment);
+		
+
 		//check : have null
 		
 		

@@ -37,7 +37,7 @@
 				BOARD	
 			<where>
 				<foreach collection="typeList" item="type" separator="or">
-	           	 BOARD_TYPE = #{type}
+	            BOARD_TYPE = #{type}
 	       		</foreach> 
        		</where>
 		)
