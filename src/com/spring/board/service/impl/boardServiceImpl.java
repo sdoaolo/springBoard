@@ -26,12 +26,13 @@ public class boardServiceImpl implements boardService{
 	
 	@Override
 	public List<BoardVo> SelectBoardList(PageVo pageVo) throws Exception {
-		// TODO Auto-generated method stub
 		//setting : pageVo.setTypelist 
 		
-		// 체크박스가 하나도 체크 안됐거나, 그냥 처음 리스트 불러올 땐  null 값이기 때문에 NullPointerException이 떳었어서 널체크 해줌! 
+		// 체크박스가 하나도 체크 안됐거나, 
+		// 그냥 처음 리스트 불러올 땐  null 값이기 때문에
+		// NullPointerException이 떳었어서 널체크 해줌! 
 		if(pageVo.getType() == null) {
-			pageVo.setType(" a01,a02,a03,a04"); // 이게 맞나...? ㅋㅋ
+			pageVo.setType("a01,a02,a03,a04"); 
 		}
 		
 	    String[] typeList = pageVo.getType().split(",");

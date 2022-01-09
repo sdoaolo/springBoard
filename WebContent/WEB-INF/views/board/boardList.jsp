@@ -13,14 +13,20 @@
 		$j("input:checkbox[name=alltype]").change(function(){
    			if($j("input:checkbox[name=alltype]").is(":checked")){
    				$j("input:checkbox[name='type']").prop("checked", true);
-   				alert("전체체크");
     		}else{
     			$j("input:checkbox[name='type']").prop("checked", false);
-    			alert("전체체크 해제");
     		}
 		});
 		
+		$j("input:checkbox[name='type']").click(function(){ 
+			if($j("input:checkbox[name='type']:checked").length==4){ 
+			    $j("input:checkbox[name=alltype]").prop("checked",true);
+			}else{ 
+			    $j("input:checkbox[name=alltype]").prop("checked",false); 
+			} 
+		});
 
+		
 		$j("#typeSearch").on("click",function(){
 			
 			var $frm = $j('#menuName :input');
@@ -29,7 +35,9 @@
 			//어떤 데이터가 가는지 확인해보자.	
 			console.log(param); 
 			
-			
+			if (param == null) {
+				alert("검색할 타입을 선택하세요");
+			}
 			
 		});
 	});
