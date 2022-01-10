@@ -29,17 +29,40 @@
 		
 		$j("#typeSearch").on("click",function(){
 			
-			var $frm = $j('#menuName :input');
+			var $frm = $j('#menuName :input[name="type"]');
 			var param = $frm.serialize();
 			
 			//어떤 데이터가 가는지 확인해보자.	
-			console.log(param); 
+			console.log(param); //string
+			//var urlText = "/board/boardList.do?"+ param;
 			
-			if (param == null) {
-				alert("검색할 타입을 선택하세요");
-			}
+			console.log()
 			
+			$j.ajax({
+			    url : "/board/boardListAction.do",
+			    dataType: "json",
+			    type: "POST",
+			    data : param,
+			    success: function(data, textStatus, jqXHR)
+			    {
+			    	//data에 리스트가 있어서 여기에서 처리해야한다. 
+			    	console.log("data", data);
+			    	//console.log("data[0]" data[0])
+			    	
+					alert("listttest")
+					alert("메세지:"+data.success);
+			    			    	
+					
+					location.href = "/board/boardList.do?"+param;
+			    },
+			    error:function(request,status,error){
+			        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    }
+
+			});
+		
 		});
+		
 	});
 
 </script>
@@ -89,11 +112,11 @@
 	<tr>
       <td align="left" id="menuName"> 
       	<input type="checkbox" name="alltype" value="전체"> 전체
-          <form method="GET" action="/board/boardList.do">
+          <form>
           <c:forEach items="${menuList}" var="menuList" >
           	<input type="checkbox" name="type" value=${menuList.menuId}>   ${menuList.menuName}
           </c:forEach> 
-          <input type="Submit" id="typeSearch" value="조회">
+          <input type="Button" id="typeSearch" value="조회">
           </form>
       </td>
    </tr>

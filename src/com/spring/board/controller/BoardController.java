@@ -46,11 +46,7 @@ public class BoardController {
 	
 		if(pageVo.getPageNo() == 0){
 			pageVo.setPageNo(page);
-		}		    
-	    	
-		System.out.println("_____________________________");
-		System.out.println("getType >> " + pageVo.getType());
-		System.out.println("_____________________________");
+		}
 		
 		//pageVo.type에 선택 type 내용이 "a03,a02" 이런 식으로 들어가 있어서... 괜찮았는데
 		menuList = boardService.SelectMenuList();
@@ -65,9 +61,49 @@ public class BoardController {
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pageNo", page);
 		
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		System.out.println("pageVo.getType()" + pageVo.getType());
+		
 		return "board/boardList";
 	}
+	
+	
+	@RequestMapping(value = "/board/boardListAction.do", method = RequestMethod.POST)
+	@ResponseBody 
+		public String boardListAction(Locale locale, Model model,PageVo pageVo) throws Exception{
 
+    	HashMap<String, List> result = new HashMap<String, List>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		int page = 1;
+		System.out.println("_____________________________");
+		System.out.println("getType >> " + pageVo.getType());
+		System.out.println("_____________________________");
+		
+		List<BoardVo> boardList = new ArrayList<BoardVo>();
+		
+		if(pageVo.getPageNo() == 0){
+			pageVo.setPageNo(page);
+		}
+		
+		boardList = boardService.SelectBoardList(pageVo);
+		
+		System.out.println("_____________________________");
+		System.out.println("boardList >> " + boardList);
+		System.out.println("_____________________________");
+		
+		int resultCnt = boardList.size();
+		System.out.println("resultCnt"+resultCnt);
+		
+		//boardList는 몇개가 올지 모르는 것이 반환되므로 0개 이상일 때 성공했다고 봐도 된다. 
+		result.put("success",boardList);
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("result"+result);
+		System.out.println("callbackMsg::"+callbackMsg);
+		
+		return callbackMsg;
+	}	
 	
 	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardView.do", method = RequestMethod.GET)
 	public String boardView(Locale locale, Model model
@@ -107,24 +143,27 @@ public class BoardController {
 	
 		
 		int num = boardVo.getBoardVoList().size();
-
-		System.out.println("____________________________");
-		System.out.println("Num : " +num);
-		
 		int check = 0;
-		//글 개수만큼 (length) board 객체 생성하고, 각 title과 comment 넣어줌. 그리고  boardList에 바로 추가
+		
+		System.out.println("____________________________");
+		System.out.println("num" + num);
+		System.out.println("boardVoList" + boardVo.getBoardVoList());
+		System.out.println("boardVoList.get(1)" + boardVo.getBoardVoList().get(1));
+		System.out.println("boardVoList.get(1).Title" + boardVo.getBoardVoList().get(1).getBoardTitle());
+		System.out.println("boardVoList.get(1).Comment" + boardVo.getBoardVoList().get(1).getBoardComment());
+		System.out.println("____________________________");
+		
 		for(int i=0;i<num;i++) {
-			BoardVo Bvo= new BoardVo();
-			System.out.println("____________________________");
-			System.out.println("boardVo.getBoardVoList.get : "+ i + " getTitle " +boardVo.getBoardVoList().get(i).getBoardTitle());
-			Bvo.setBoardTitle(boardVo.getBoardVoList().get(i).getBoardTitle());
-			Bvo.setBoardComment(boardVo.getBoardVoList().get(i).getBoardComment());
-			
-			//boardType에는 code Id가 들어가야하는데 codeId는 jsp에서 List에 menuId라는 변수로 들어가있다. 
-			//따라서 select의 value를 list.menuId로 바로 바꿔주면 된다
-			Bvo.setBoardType(boardVo.getBoardType());
-			int resultCnt =	boardService.boardInsert(Bvo);
-			check += resultCnt;		//insert성공시 1이라서
+			if(boardVo.getBoardVoList().get(i).getBoardTitle() != null) {
+				BoardVo Bvo= new BoardVo();
+				Bvo = boardVo.getBoardVoList().get(i);
+				
+				//boardType에는 code Id가 들어가야하는데 codeId는 jsp에서 List에 menuId라는 변수로 들어가있다. 
+				//따라서 select의 value를 list.menuId로 바로 바꿔주면 된다
+				Bvo.setBoardType(boardVo.getBoardType());
+				int resultCnt =	boardService.boardInsert(Bvo);
+				check += resultCnt;		//insert성공시 1이라서
+			}
 		}
 		
 		

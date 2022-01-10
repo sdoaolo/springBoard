@@ -54,36 +54,36 @@
 			});
 		});
 		
-		function addText(i){
+		
+		
+		function addRow(i){
 			var addText = '<tr>'+
-				'<td width="120" align="center">'+
-				'Title'+
-				'<input type="checkbox" name="checkList">'+
-				'</td>'+
-				         '<td width="400">'+
-				         '<input name="boardVoList['+i+'].boardTitle" type="text" size="50" value="${board.boardTitle}">'+ 
-				         '</td>'+
-				      '</tr>'   +
-				      '<tr name="trComment">'+
-				         '<td height="300" align="center">'+
-				         'Comment'+
-				         '</td>'+
-				         '<td valign="top">'+
-				         '<textarea name="boardVoList['+i+'].boardComment"  rows="20" cols="55" value="${board.boardComment}"/>'+
-				         '</td>'+
-				      '</tr>';		
-				      
-				console.log("addText:" +addText);
-				var trHtml = $j("tr[name=trComment]:last");
-				trHtml.after(addText);
+			'<td width="120" align="center">'+
+			'Title'+
+			'<input type="checkbox" name="checkList">'+
+			'</td>'+
+			         '<td width="400">'+
+			         '<input name="boardVoList['+i+'].boardTitle" type="text" size="50" value="${board.boardTitle}">'+ 
+			         '</td>'+
+			      '</tr>'   +
+			      '<tr name="trComment">'+
+			         '<td height="300" align="center">'+
+			         'Comment'+
+			         '</td>'+
+			         '<td valign="top">'+
+			         '<textarea name="boardVoList['+i+'].boardComment"  rows="20" cols="55" value="${board.boardComment}"/>'+
+			         '</td>'+
+			      '</tr>';		
+			console.log("addText:" +addText);
+			var trHtml = $j("tr[name=trComment]:last");
+			trHtml.after(addText);
 		}
 		
 
 		$j("#addRow").on("click",function(){
 			index++;
-			
 			console.log("index:" +index);
-			addText(index);
+			addRow(index);
 		});
 		
 		
