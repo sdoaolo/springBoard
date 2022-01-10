@@ -105,23 +105,20 @@ public class BoardController {
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
 	
-		String[] strTitle = boardVo.getBoardTitle().split(",");
-		String[] strComment = boardVo.getBoardComment().split(",");
 		
-		System.out.println(strTitle);
-		System.out.println(strComment);
-		
+		int num = boardVo.getBoardVoList().size();
 
-		//check : have null
+		System.out.println("____________________________");
+		System.out.println("Num : " +num);
 		
-		
-		int num = strTitle.length;
 		int check = 0;
 		//글 개수만큼 (length) board 객체 생성하고, 각 title과 comment 넣어줌. 그리고  boardList에 바로 추가
 		for(int i=0;i<num;i++) {
 			BoardVo Bvo= new BoardVo();
-			Bvo.setBoardTitle(strTitle[i]);
-			Bvo.setBoardComment(strComment[i]);
+			System.out.println("____________________________");
+			System.out.println("boardVo.getBoardVoList.get : "+ i + " getTitle " +boardVo.getBoardVoList().get(i).getBoardTitle());
+			Bvo.setBoardTitle(boardVo.getBoardVoList().get(i).getBoardTitle());
+			Bvo.setBoardComment(boardVo.getBoardVoList().get(i).getBoardComment());
 			
 			//boardType에는 code Id가 들어가야하는데 codeId는 jsp에서 List에 menuId라는 변수로 들어가있다. 
 			//따라서 select의 value를 list.menuId로 바로 바꿔주면 된다

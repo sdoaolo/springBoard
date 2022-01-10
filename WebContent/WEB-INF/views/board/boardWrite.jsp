@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@include file="/WEB-INF/views/common/common.jsp"%>    
+<%@include file="/WEB-INF/views/common/common.jsp"%>   
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +11,7 @@
 </head>
 <script type="text/javascript">
 	$j(document).ready(function(){
-		
+		var index = 0;
 		//select 데이터 변경 감지 
 		$j("select[name=boardType]").change(function(){
 			  console.log($j(this).val()); //value값 가져오기
@@ -41,7 +43,7 @@
 			    {
 					alert("작성완료");
 					
-					alert("메세지:"+data.succ0ess);
+					alert("메세지:"+data.success);
 					
 					location.href = "/board/boardList.do?";
 			    },
@@ -52,27 +54,36 @@
 			});
 		});
 		
-		var addText = '<tr>'+
-			'<td width="120" align="center">'+
-			'Title'+
-			'<input type="checkbox" name="checkList">'+
-			'</td>'+
-			'<td width="400">'+
-			'<input name="boardTitle" type="text" size="50" value="${board.boardTitle}">'+ 
-			'</td>'+
-		'</tr>'	+
-		'<tr name="trComment">'+
-			'<td height="300" align="center">'+
-			'Comment'+
-			'</td>'+
-			'<td valign="top">'+
-			'<textarea name="boardComment"  rows="20" cols="55" value="${board.boardComment}"/>'+
-			'</td>'+
-		'</tr>';
-	
+		function addText(i){
+			var addText = '<tr>'+
+				'<td width="120" align="center">'+
+				'Title'+
+				'<input type="checkbox" name="checkList">'+
+				'</td>'+
+				         '<td width="400">'+
+				         '<input name="boardVoList['+i+'].boardTitle" type="text" size="50" value="${board.boardTitle}">'+ 
+				         '</td>'+
+				      '</tr>'   +
+				      '<tr name="trComment">'+
+				         '<td height="300" align="center">'+
+				         'Comment'+
+				         '</td>'+
+				         '<td valign="top">'+
+				         '<textarea name="boardVoList['+i+'].boardComment"  rows="20" cols="55" value="${board.boardComment}"/>'+
+				         '</td>'+
+				      '</tr>';		
+				      
+				console.log("addText:" +addText);
+				var trHtml = $j("tr[name=trComment]:last");
+				trHtml.after(addText);
+		}
+		
+
 		$j("#addRow").on("click",function(){
-			var trHtml = $j("tr[name=trComment]:last");
-			trHtml.after(addText);
+			index++;
+			
+			console.log("index:" +index);
+			addText(index);
 		});
 		
 		
@@ -94,7 +105,7 @@
 	});
 </script>
 <body>
-<form class="boardWrite">
+<form:form commandName="boardVo" class="boardWrite" >
 	<table align="center">
 		<tr>
 			<td align="right">
@@ -123,7 +134,7 @@
 						Title
 						</td>
 						<td width="400">
-						<input name="boardTitle" type="text" size="50" value="${board.boardTitle}"> 
+						<input name="boardVoList[0].boardTitle" type="text" size="50" value="${board.boardTitle}"> 
 						</td>
 					</tr>
 					<tr name="trComment">
@@ -131,7 +142,7 @@
 						Comment
 						</td>
 						<td valign="top">
-						<textarea name="boardComment"  rows="20" cols="55">${board.boardComment}</textarea>
+						<textarea name="boardVoList[0].boardComment"  rows="20" cols="55">${board.boardComment}</textarea>
 						</td>
 					</tr>
 					
@@ -152,7 +163,7 @@
 			</td>
 		</tr>
 	</table>
-	
-</form>	
+
+</form:form>
 </body>
 </html>
