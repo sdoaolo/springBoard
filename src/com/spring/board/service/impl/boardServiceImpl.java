@@ -25,7 +25,7 @@ public class boardServiceImpl implements boardService{
 	}
 	
 	@Override
-	public List<BoardVo> SelectBoardList(PageVo pageVo) throws Exception {
+	public List<BoardVo> SelectBoardList(PageVo pageVo, List<MenuVo> menuList) throws Exception {
 		//setting : pageVo.setTypelist 
 		
 		// 체크박스가 하나도 체크 안됐거나, 
@@ -37,8 +37,20 @@ public class boardServiceImpl implements boardService{
 		
 	    String[] typeList = pageVo.getType().split(",");
 	    pageVo.setTypeList(typeList);
-
-		return boardDao.selectBoardList(pageVo);
+	    
+	    List<BoardVo> result = new ArrayList<BoardVo>();
+	    result = boardDao.selectBoardList(pageVo);
+	    
+	    for(int i = 0; i <result.size();i++) {
+			for(int k = 0; k<menuList.size(); k++) {
+				if(result.get(i).getBoardType().equals( menuList.get(k).getMenuId())) {
+					result.get(i).setBoardTypeName(menuList.get(k).getMenuName());
+					break;
+				}
+			}
+		}
+	    
+		return result;
 		
 	}
 	
@@ -91,12 +103,8 @@ public class boardServiceImpl implements boardService{
 	public List<BoardVo> BoardTypeToName(List<BoardVo> boardList, List<MenuVo> menuList) throws Exception{
 		for(int i = 0; i <boardList.size();i++) {
 			for(int k = 0; k<menuList.size(); k++) {
-				//System.out.println("board: " +boardList.get(i).getBoardType().length());
-				//System.out.println("menu: " + menuList.get(k).getMenuId().length());
-				//System.out.println("-------------------------------------------");
 				if(boardList.get(i).getBoardType().equals( menuList.get(k).getMenuId())) {
 					boardList.get(i).setBoardTypeName(menuList.get(k).getMenuName());
-					//System.out.println("board: " +boardList.get(i).getBoardType());
 					break;
 				}
 			}

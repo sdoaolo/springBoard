@@ -50,11 +50,8 @@ public class BoardController {
 		
 		//pageVo.type에 선택 type 내용이 "a03,a02" 이런 식으로 들어가 있어서... 괜찮았는데
 		menuList = boardService.SelectMenuList();
-		boardList = boardService.SelectBoardList(pageVo);
-		totalCnt = boardService.selectBoardCnt();
-
-		//boardTypeName Setting
-		boardList = boardService.BoardTypeToName(boardList, menuList);
+		boardList = boardService.SelectBoardList(pageVo, menuList);
+		totalCnt = boardService.selectBoardCnt();		
 		
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("boardList", boardList);
@@ -68,7 +65,7 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value = "/board/boardListAction.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/board/boardListAction.do", method = RequestMethod.POST, produces="text/plain; charset=EUC-KR")
 	@ResponseBody 
 		public String boardListAction(Locale locale, Model model,PageVo pageVo) throws Exception{
 
@@ -76,21 +73,16 @@ public class BoardController {
 		CommonUtil commonUtil = new CommonUtil();
 		
 		int page = 1;
-		System.out.println("_____________________________");
-		System.out.println("getType >> " + pageVo.getType());
-		System.out.println("_____________________________");
 		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
+		List<MenuVo> menuList = new ArrayList<MenuVo>();
 		
 		if(pageVo.getPageNo() == 0){
 			pageVo.setPageNo(page);
 		}
 		
-		boardList = boardService.SelectBoardList(pageVo);
-		
-		System.out.println("_____________________________");
-		System.out.println("boardList >> " + boardList);
-		System.out.println("_____________________________");
+		menuList = boardService.SelectMenuList();
+		boardList = boardService.SelectBoardList(pageVo,menuList);
 		
 		int resultCnt = boardList.size();
 		System.out.println("resultCnt"+resultCnt);

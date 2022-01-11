@@ -10,7 +10,7 @@ public interface boardService {
 
 	public String selectTest() throws Exception;
 
-	public List<BoardVo> SelectBoardList(PageVo pageVo) throws Exception;
+	public List<BoardVo> SelectBoardList(PageVo pageVo, List<MenuVo> menuList) throws Exception;
 	
 	public BoardVo selectBoard(String boardType, int boardNum) throws Exception;
 
