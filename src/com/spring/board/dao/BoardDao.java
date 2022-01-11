@@ -22,5 +22,5 @@ public interface BoardDao {
 	
 	public int boardDelete(BoardVo boardVo) throws Exception;
 
-	public List<MenuVo> selectMenuList() throws Exception;
+	public List<MenuVo> selectMenuList(String codeType) throws Exception;
 }

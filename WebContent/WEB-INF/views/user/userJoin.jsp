@@ -15,7 +15,6 @@
 
 </script>
 <body>
-	Join Page
 	<form class="userJoin" >
 	<table align="center">
 		<tr>
@@ -31,72 +30,85 @@
 						<td width="120" align="center">
 						id
 						</td>
-						<td width="400">
-						<input name="userId" type="text" size="50" value="${user.userId}"> 
+						<td width="300">
+						<input name="userId" type="text" size="15" value="${user.userId}"> 
+						<input name="checkIdOverlap" type="button" size="15" value="중복확인"> 
 						</td>
 					</tr>
 					<tr>
 						<td width="120" align="center">
 						pw
 						</td>
-						<td width="400">
-						<input name="userPw" type="text" size="50" value="${user.userPw}"> 
+						<td width="300">
+						<input name="userPw" type="text" size="20" value="${user.userPw}"> 
 						</td>
 					</tr>
 					<tr>
 						<td width="120" align="center">
 						pw check
 						</td>
-						<td width="400">
-						<input name="userPwCheck" type="text" size="50" > 
+						<td width="300">
+						<input name="userPwCheck" type="text" size="20" > 
 						</td>
 					</tr>
 					<tr>
 						<td width="120" align="center">
 						name
 						</td>
-						<td width="400">
-						<input name="userName" type="text" size="50" value="${user.userName}"> 
+						<td width="300">
+						<input name="userName" type="text" size="20" value="${user.userName}"> 
 						</td>
 					</tr>
 					<tr>
 						<td width="120" align="center">
 						phone
 						</td>
-						<td width="400">
-						
+						<td width="300">
+							<select name="userPhone1">
+								<c:forEach items="${menuList}" var="list">
+									<option value=${list.menuId}> ${list.menuName} </option>
+								</c:forEach>
+							</select>
+							-
+							<input name="userPhone2" type="text" size="4" > 
+							-
+							<input name="userPhone3" type="text" size="4" > 
 						</td>
 					</tr>
 					<tr>
 						<td width="120" align="center">
 						postNo
 						</td>
-						<td width="400">
-						<input name="userPostNo" type="text" size="50" > 
+						<td width="300">
+						<input name="userPostNo" type="text" size="20" > 
 						</td>
 					</tr>
 					<tr>
 						<td width="120" align="center">
 						address
 						</td>
-						<td width="400">
-						<input name="userAddr1" type="text" size="50" value="${user.userAddr1}"> 
+						<td width="300">
+						<input name="userAddr1" type="text" size="20" value="${user.userAddr1}"> 
 						</td>
 					</tr>
 					<tr>
 						<td width="120" align="center">
 						company
 						</td>
-						<td width="400">
-						<input name="userCompany" type="text" size="50" value="${user.userAddr1}"> 
+						<td width="300">
+						<input name="userCompany" type="text" size="20" value="${user.userAddr1}"> 
 						</td>
 					</tr>
 					
 				</table>
 			</td>
 		</tr>
+		<tr>
+		<td align="right">
+			<input type="button" value="Join">
+		</td>
+	</tr>	
 	</table>
-
 </form>
 </body>
 </html>

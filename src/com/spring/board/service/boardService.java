@@ -22,7 +22,7 @@ public interface boardService {
 	
 	public int boardDelete(String boardType, int boardNum) throws Exception;
 	 
-	public List<MenuVo> SelectMenuList() throws Exception ;
+	public List<MenuVo> SelectMenuList(String codeType) throws Exception ;
 	
 	public List<BoardVo> BoardTypeToName(List<BoardVo> boardVo, List<MenuVo> menuVo) throws Exception;
 }

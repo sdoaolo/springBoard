@@ -49,7 +49,7 @@ public class BoardController {
 		}
 		
 		//pageVo.type에 선택 type 내용이 "a03,a02" 이런 식으로 들어가 있어서... 괜찮았는데
-		menuList = boardService.SelectMenuList();
+		menuList = boardService.SelectMenuList("menu");
 		boardList = boardService.SelectBoardList(pageVo, menuList);
 		totalCnt = boardService.selectBoardCnt();		
 		
@@ -77,7 +77,7 @@ public class BoardController {
 			pageVo.setPageNo(page);
 		}
 		
-		menuList = boardService.SelectMenuList();
+		menuList = boardService.SelectMenuList("menu");
 		boardList = boardService.SelectBoardList(pageVo,menuList);
 	
 		model.addAttribute("pageNo", page);
@@ -109,7 +109,7 @@ public class BoardController {
 	public String boardWrite(Locale locale, Model model) throws Exception{
 		
 		List<MenuVo> menuList = new ArrayList<MenuVo>();
-		menuList = boardService.SelectMenuList();
+		menuList = boardService.SelectMenuList("menu");
 		model.addAttribute("menuList", menuList);
 		
 		return "board/boardWrite";

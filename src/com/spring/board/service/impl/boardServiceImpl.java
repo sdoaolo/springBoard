@@ -94,9 +94,9 @@ public class boardServiceImpl implements boardService{
 	}
 	
 	@Override
-	public List<MenuVo> SelectMenuList() throws Exception {
+	public List<MenuVo> SelectMenuList(String codeType) throws Exception {
 		// TODO Auto-generated method stub
-		return boardDao.selectMenuList();
+		return boardDao.selectMenuList(codeType);
 	}
 	
 	@Override

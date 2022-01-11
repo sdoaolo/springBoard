@@ -106,11 +106,11 @@
     	AND 	BOARD_NUM  = #{boardNum}
     </select>
 	
-	<select id="menuList" resultMap="menuVo">
+	<select id="menuList" parameterType="String" resultMap="menuVo">
       select CODE_TYPE
 	      , CODE_ID
 	      , CODE_NAME
       from Com_code
-      where CODE_TYPE = 'menu'
+      where CODE_TYPE = #{value}
     </select>
 </mapper>

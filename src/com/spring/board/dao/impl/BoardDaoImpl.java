@@ -63,8 +63,8 @@ public class BoardDaoImpl implements BoardDao{
 
 	
 	@Override
-	public List<MenuVo> selectMenuList() throws Exception{
-		return sqlSession.selectList("board.menuList");
+	public List<MenuVo> selectMenuList(String codeType) throws Exception{
+		return sqlSession.selectList("board.menuList",codeType);
 	}
 	
 	

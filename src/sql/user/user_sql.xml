@@ -29,7 +29,14 @@
 		WHERE USER_ID = #{userId}
         AND USER_PW = #{userPw}; 
     </select>
-       
+    
+    <select id = "idCheck" parameterType="String">
+     SELECT 
+		  USER_ID
+		FROM USER_INFO
+		WHERE USER_ID = ${userId} ;
+    </select>
+
     <select id="userInsert"   parameterType="com.spring.board.vo.UserVo">
        INSERT INTO 
         USER_INFO
