@@ -58,7 +58,7 @@ public class BoardController {
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pageNo", page);
 		
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		
 		System.out.println("pageVo.getType()" + pageVo.getType());
 		
 		return "board/boardList";
@@ -66,35 +66,24 @@ public class BoardController {
 	
 	
 	@RequestMapping(value = "/board/boardListAction.do", method = RequestMethod.POST, produces="text/plain; charset=EUC-KR")
-	@ResponseBody 
 		public String boardListAction(Locale locale, Model model,PageVo pageVo) throws Exception{
 
-    	HashMap<String, List> result = new HashMap<String, List>();
-		CommonUtil commonUtil = new CommonUtil();
-		
 		int page = 1;
 		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		List<MenuVo> menuList = new ArrayList<MenuVo>();
-		
+
 		if(pageVo.getPageNo() == 0){
 			pageVo.setPageNo(page);
 		}
 		
 		menuList = boardService.SelectMenuList();
 		boardList = boardService.SelectBoardList(pageVo,menuList);
+	
+		model.addAttribute("pageNo", page);
+		model.addAttribute("boardList", boardList);
 		
-		int resultCnt = boardList.size();
-		System.out.println("resultCnt"+resultCnt);
-		
-		//boardList는 몇개가 올지 모르는 것이 반환되므로 0개 이상일 때 성공했다고 봐도 된다. 
-		result.put("success",boardList);
-		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
-		
-		System.out.println("result"+result);
-		System.out.println("callbackMsg::"+callbackMsg);
-		
-		return callbackMsg;
+		return "board/typeSearchListForm";
 	}	
 	
 	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardView.do", method = RequestMethod.GET)
@@ -137,14 +126,6 @@ public class BoardController {
 		int num = boardVo.getBoardVoList().size();
 		int check = 0;
 		
-		System.out.println("____________________________");
-		System.out.println("num" + num);
-		System.out.println("boardVoList" + boardVo.getBoardVoList());
-		System.out.println("boardVoList.get(1)" + boardVo.getBoardVoList().get(1));
-		System.out.println("boardVoList.get(1).Title" + boardVo.getBoardVoList().get(1).getBoardTitle());
-		System.out.println("boardVoList.get(1).Comment" + boardVo.getBoardVoList().get(1).getBoardComment());
-		System.out.println("____________________________");
-		
 		for(int i=0;i<num;i++) {
 			if(boardVo.getBoardVoList().get(i).getBoardTitle() != null) {
 				BoardVo Bvo= new BoardVo();
@@ -157,7 +138,6 @@ public class BoardController {
 				check += resultCnt;		//insert성공시 1이라서
 			}
 		}
-		
 		
 		result.put("success", (check == num)?"Y":"N");
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);

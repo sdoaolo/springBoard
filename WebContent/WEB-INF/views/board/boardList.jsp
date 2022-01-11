@@ -36,63 +36,18 @@
 			var $frm = $j('#menuName :input[name="type"]');
 			var param = $frm.serialize();
 			
-			//어떤 데이터가 가는지 확인해보자.	
+
 			console.log(param); //string
-			//var urlText = "/board/boardList.do?"+ param;
-			
-			console.log()
 			
 			$j.ajax({
 			    url : "/board/boardListAction.do",
-			    dataType: "json",
+			    dataType: "html",	
 			    type: "POST",
 			    data : param,
-			    success: function(data, textStatus, jqXHR)
+			    success: function(data)
 			    {
-			    	var mydata ="";//조회한 json객체안의 모든 데이터를 꺼내서 추가할 변수
-			    	
 			    	$j("#boardTable").empty();
-			    	
-			    	mydata = 
-			    		'<tr><td width="80" align="center">Type</td>'+
-					'<td width="40" align="center">No</td>'+
-					'<td width="300" align="center">Title</td></tr>';
-			    	
-					for(var i = 0; i<data.success.length;i++){
-						mydata = mydata + '<tr>'+
-						'<td align="center" id="boardType">'+
-							data.success[i].boardTypeName +
-						'</td>'+
-						'<td>'+
-					 		data.success[i].boardNum +
-						'</td>'+
-						'<td>'+
-						'<a href = "/board/' + data.success[i].boardType + '/' + data.success[i].boardNum +'/boardView.do?pageNo=${pageNo}">'+ data.success[i].boardTitle +'</a>'+
-						'</td>'+
-						'</tr>';
-					}
-			    	
-			    	$j("#boardTable").append(mydata);
-			    	
-			    	
-			    	
-			    	//data에 리스트가 있어서 여기에서 처리해야한다. 
-			    	console.log("data.success",data.success);
-					//console.log("data.success[0]", data.success[0].boardNum);
-			    	//console.log("data[0].boardNum",data[0].boardNum);
-			    	/*
-			    	for (var i = 0 ; i< data.success.length;i++){
-			    		console.log("boardType ", i ," : ", data.success[i].boardType);
-			    		console.log("boardTitle ", i ," : ", data.success[i].boardTitle);
-			    		console.log("boardComment ", i ," : ", data.success[i].boardComment);
-			    	}
-			    	*/
-					alert("listttest")
-			    			    	
-					//아래거 없이 나오도록  코딩하기!!!!!!!!
-					//그러면 여기에서 이부분에 ->>   <a href = "/board/${list.boardType}/${list.boardNum}/boardView.do?pageNo=${pageNo}">${list.boardTitle}</a>
-					//데이터 값을 넣어주어야 하나
-					//location.href = "/board/boardList.do?"+param;
+			    	$j("#boardTable").html(data); 
 			    },
 			    error:function(request,status,error){
 			        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -127,7 +82,6 @@
 						Title
 					</td>
 				</tr>
-				<test id = "test">
 				<c:forEach items="${boardList}" var="list">
 					<tr>
 						<td align="center" id="boardType">
@@ -141,7 +95,6 @@
 						</td>
 					</tr>	
 				</c:forEach>
-				</test>
 			</table>
 		</td>
 	</tr>
