@@ -5,6 +5,8 @@ import com.spring.board.vo.UserVo;
 public interface UserDao {
 	public UserVo selectUser(UserVo userVo) throws Exception;
 	
+	public UserVo userIdUniqueCheck(String id) throws Exception;
+	
 	public int userInsert(UserVo userVo) throws Exception;
 	
 	public int userUpdate(UserVo userVo) throws Exception;

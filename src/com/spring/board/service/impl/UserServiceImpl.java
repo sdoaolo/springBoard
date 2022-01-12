@@ -18,7 +18,12 @@ public class UserServiceImpl implements UserService {
 	public UserVo selectBoard(String userId, String userPw) throws Exception{
 		return UserDao.selectUser(userVo);
 	}*/
-
+	
+	@Override
+	public UserVo userIdUniqueCheck(String id) throws Exception{
+		return userDao.userIdUniqueCheck(id);
+	}
+	
 	@Override
 	public int userInsert(UserVo userVo) throws Exception{
 		return userDao.userInsert(userVo);

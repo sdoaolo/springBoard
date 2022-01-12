@@ -50,7 +50,6 @@
 			FROM
 				BOARD	
     </select>
-    
     	
     <select id="boardView" parameterType="com.spring.board.vo.BoardVo" resultMap="boardVo">
     	SELECT

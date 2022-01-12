@@ -27,14 +27,14 @@
           ,USER_COMPANY
 		FROM USER_INFO
 		WHERE USER_ID = #{userId}
-        AND USER_PW = #{userPw}; 
+        AND USER_PW = #{userPw}
     </select>
     
-    <select id = "idCheck" parameterType="String">
+    <select id = "idCheck" parameterType="String" resultMap="userVo">
      SELECT 
-		  USER_ID
+		 COUNT(USER_ID) AS USER_ID
 		FROM USER_INFO
-		WHERE USER_ID = ${userId} ;
+		WHERE USER_ID = #{value}
     </select>
 
     <select id="userInsert"   parameterType="com.spring.board.vo.UserVo">
