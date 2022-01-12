@@ -28,15 +28,16 @@
 			var postRegExp = /^\d{3}-\d{3}$/;
 			var phoneRegExp = /^\d{4}$/;
 			
-			var postNo = $j('input[name="userPostNo"]').val();
+			var postNo = $j('input[name="userAddr1"]').val();
 			var phone2 = $j('input[name="userPhone2"]').val();
 			var phone3 = $j('input[name="userPhone3"]').val();
 			
 			var validChk=0;
-			
-			if(!postRegExp.test(postNo)) {            
-           		alert("postNo의 형식은 숫자로 xxx-xxx입니다.");
-           		validChk += 1;
+			if(postNo.length > 0){
+				if(!postRegExp.test(postNo)) {            
+	           		alert("postNo의 형식은 숫자로 xxx-xxx입니다.");
+	           		validChk += 1;
+				}
 			}
 			if(!phoneRegExp.test(phone2) || !phoneRegExp.test(phone3)){
 				alert("phone은 4자리 숫자로 입력해주세요");
@@ -162,7 +163,7 @@
 						postNo
 						</td>
 						<td width="300">
-						<input name="userPostNo" type="text" size="20" > 
+						<input name="userAddr1" type="text" size="20" > 
 						</td>
 					</tr>
 					<tr>
@@ -170,7 +171,7 @@
 						address
 						</td>
 						<td width="300">
-						<input name="userAddr1" type="text" size="20" value="${user.userAddr1}"> 
+						<input name="userAddr2" type="text" size="20" value="${user.userAddr1}"> 
 						</td>
 					</tr>
 					<tr>

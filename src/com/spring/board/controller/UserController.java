@@ -50,26 +50,11 @@ public class UserController {
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
 		
-		System.out.println("___________USER____________");
-		System.out.println("userVo.getUserId()" + userVo.getUserId());
+		int resultCnt = userService.userInsert(userVo);
 		
-		System.out.println("___________USER____________");
-		
-		
-		/*
-		
-		int num = boardVo.getBoardVoList().size();
-		int check = 0;
-		
-		int resultCnt =	boardService.boardInsert(Bvo);
-		result.put("success", (check == num)?"Y":"N");
+		result.put("success", (resultCnt>0)?"Y":"N");//insert성공시 1
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
-
-		System.out.println("callbackMsg::"+callbackMsg);
-		
 		return callbackMsg;
-		*/
-		return "";
 	}
 	
 	@RequestMapping(value = "/user/userLogin.do", method = RequestMethod.GET)
