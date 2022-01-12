@@ -3,7 +3,7 @@ package com.spring.board.service;
 import com.spring.board.vo.UserVo;
 
 public interface UserService {
-	public UserVo selectBoard(String userId, String userPw) throws Exception;
+	public UserVo selectUser(String userId, String userPw) throws Exception;
 
 	public UserVo userIdUniqueCheck(String id) throws Exception;
 	

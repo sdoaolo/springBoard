@@ -56,6 +56,7 @@ public class UserController {
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
 		return callbackMsg;
 	}
+	
 	@RequestMapping(value = "/board/userCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String userCheck(Locale locale,UserVo userVo) throws Exception{
@@ -66,10 +67,6 @@ public class UserController {
 		System.out.println("jsp to controller " + userVo.getUserId());
 		UserVo checkUser = userService.userIdUniqueCheck(userVo.getUserId());
 		
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-		System.out.println(checkUser.getUserId());
-		System.out.println(Integer.parseInt(checkUser.getUserId()));
-		//result.put("success", (checkUser.getUserId() == "0")?"Unique":"NotUnique");
 		result.put("success", (Integer.parseInt(checkUser.getUserId()) > 0)?"NotUnique":"Unique");
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
 		return callbackMsg;
@@ -79,5 +76,27 @@ public class UserController {
 	public String userLogin(Locale locale, Model model) throws Exception{
 		
 		return "user/userLogin";
+	}
+	
+
+	@RequestMapping(value = "/board/userLoginAction.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String userLoginAction(Locale locale,UserVo userVo) throws Exception{
+		
+		HashMap<String, UserVo> result = new HashMap<String, UserVo>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		System.out.println("jsp to controller " + userVo.getUserId());
+		System.out.println("jsp to controller " + userVo.getUserPw());
+		
+		UserVo loginVo;
+		loginVo = userService.selectUser(userVo.getUserId(),userVo.getUserPw());
+		
+		result.put("success", loginVo);
+		
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("callbackMsg"+callbackMsg);
+		return callbackMsg;
 	}
 }

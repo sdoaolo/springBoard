@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.board.dao.UserDao;
 import com.spring.board.service.UserService;
+import com.spring.board.vo.BoardVo;
 import com.spring.board.vo.UserVo;
 
 @Service
@@ -13,11 +14,15 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDao userDao;
 	
-	/*
+	
 	@Override
-	public UserVo selectBoard(String userId, String userPw) throws Exception{
-		return UserDao.selectUser(userVo);
-	}*/
+	public UserVo selectUser(String id, String pw) throws Exception{
+		UserVo userVo = new UserVo();
+		userVo.setUserId(id);
+		userVo.setUserPw(pw);
+
+		return userDao.selectUser(userVo);
+	}
 	
 	@Override
 	public UserVo userIdUniqueCheck(String id) throws Exception{
@@ -39,9 +44,4 @@ public class UserServiceImpl implements UserService {
 		return userDao.userDelete(userId, userPw);
 	}
 
-	@Override
-	public UserVo selectBoard(String userId, String userPw) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -79,9 +79,9 @@
 				    {
 						alert("Join 후 AJAX success ");
 						
-						alert("메세지:"+data.success);
+						console.log(data.success);
 						
-						//location.href = "/board/boardList.do?";
+						location.href = "/board/boardList.do?";
 				    },
 				    error: function (jqXHR, textStatus, errorThrown)
 				    {

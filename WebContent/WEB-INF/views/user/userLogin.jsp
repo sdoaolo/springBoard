@@ -10,12 +10,42 @@
 <script type="text/javascript">
 
 	$j(document).ready(function(){
-		
+		$j("#login").on("click",function(){
+			
+			var inputId = $j('input[name="userId"]').val();
+			var inputPw = $j('input[name="userPw"]').val();
+			
+			var $frm = $j('.userLogin :input');
+			var param = $frm.serialize();
+			
+			$j.ajax({
+			    url : "/board/userLoginAction.do",
+			    dataType: "json",
+			    type: "POST",
+			    data : param,
+			    success: function(data, textStatus, jqXHR)
+			    {
+					if(!!data.success){
+						console.log("data 존재")
+						alert("로그인 성공");
+						location.href = "/board/boardList.do?";
+					}else{
+						console.log("data 없음")
+						alert("아이디 또는 패스워드가 틀렸습니다.");
+						
+					}
+			    },
+			    error: function (jqXHR, textStatus, errorThrown)
+			    {
+			    	alert("실패");
+			    }
+			});
+		});
 	});
 
 </script>
 <body>
-	<form class="userJoin" >
+	<form class="userLogin" >
 	<table align="center">
 		<tr>
 			<td align="left">
@@ -47,7 +77,7 @@
 		</tr>
 		<tr>
 		<td align="right">
-			<!--    <a href ="/board/boardWrite.do">Login</a>    --> Login
+			<input id="login" type="button" value="login">
 		</td>
 	</tr>	
 	</table>
