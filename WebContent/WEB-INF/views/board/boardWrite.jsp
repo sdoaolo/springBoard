@@ -151,6 +151,14 @@
 						Writer
 						</td>
 						<td>
+						<c:choose>
+							<c:when test="${login == null}">
+							</c:when>
+							<c:when test="${login != null}">
+								<a>${login.userName}</a>
+								<input name="boardVoList[0].creator" type="hidden" value=${login.userName}>
+							</c:when>
+						</c:choose> 
 						</td>
 					</tr>
 					

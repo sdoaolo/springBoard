@@ -54,17 +54,26 @@
 			    }
 			});
 		});
+		$j("#Logout").on("click",function(){
+			//sessiion 없어지게..?
+		});
 	});
 
 </script>
 <body>
 <table  align="center">
 	<tr>
-		<td align="left">
-			<a href ="../user/userLogin.do">login</a>
-			<a href ="../user/userJoin.do">join</a>
-		</td>
-		<td align="right">
+			<td align="left">
+				<c:choose>
+					<c:when test="${login == null}">
+						<a href="../user/userLogin.do">login</a>
+						<a href="../user/userJoin.do">join</a>
+					</c:when>
+					<c:when test="${login != null}">
+						<a>${login.userName}</a>
+					</c:when>
+				</c:choose></td>
+			<td align="right">
 			total : ${totalCnt}
 		</td>
 	</tr>
@@ -100,7 +109,15 @@
 	</tr>
 	<tr>
 		<td align="right">
-			<a href ="/board/boardWrite.do">글쓰기</a>
+			<c:choose>
+					<c:when test="${login == null}">
+						<a href ="/board/boardWrite.do">글쓰기</a>
+					</c:when>
+					<c:when test="${login != null}">
+						<a href ="/board/boardWrite.do">글쓰기</a>
+						<input type="button" id="Logout" value="Logout" >
+					</c:when>
+				</c:choose>
 		</td>
 	</tr>	
 	<tr>

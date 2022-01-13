@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,7 +84,7 @@ public class UserController {
 
 	@RequestMapping(value = "/board/userLoginAction.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String userLoginAction(Locale locale,UserVo userVo) throws Exception{
+	public String userLoginAction(Locale locale,HttpServletRequest req, UserVo userVo) throws Exception{
 		
 		HashMap<String, UserVo> result = new HashMap<String, UserVo>();
 		CommonUtil commonUtil = new CommonUtil();
@@ -96,7 +99,19 @@ public class UserController {
 		
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
 		
-		System.out.println("callbackMsg"+callbackMsg);
+		
+		HttpSession session = req.getSession();
+
+		if (loginVo == null) {
+			session.setAttribute("login", null);
+		}
+		else {
+			session.setAttribute("login", loginVo);
+		}		
+		
+		System.out.println("testtttttttttttttttttttttttttttttt");
+		System.out.println("session'login' " + session.getAttribute("login"));		
+		System.out.println("testtttttttttttttttttttttttttttttt");
 		return callbackMsg;
 	}
 }

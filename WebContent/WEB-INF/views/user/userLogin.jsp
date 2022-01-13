@@ -27,7 +27,11 @@
 			    {
 					if(!!data.success){
 						console.log("data 존재")
+						console.log("data.success:" + data.success.userId);
+						//console.log("data:" + data)
 						alert("로그인 성공");
+			
+						//var url = "/board/boardList.do?userId="+data.success.userId
 						location.href = "/board/boardList.do?";
 					}else{
 						console.log("data 없음")

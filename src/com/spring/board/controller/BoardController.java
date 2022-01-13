@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
@@ -36,11 +39,15 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value = "/board/boardList.do", method = RequestMethod.GET)
-	public String boardList(Locale locale, Model model,PageVo pageVo) throws Exception{
+	public String boardList(Locale locale, Model model,HttpServletRequest req, PageVo pageVo) throws Exception{
 															
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		List<MenuVo> menuList = new ArrayList<MenuVo>();
+		HttpSession session = req.getSession();
 	
+		System.out.println("_______________________________________________________");
+		System.out.println("testtttttttttttttttttttttttt BoardList : " + session.getAttribute("login"));
+		
 		int page = 1;
 		int totalCnt = 0;
 	
@@ -94,7 +101,9 @@ public class BoardController {
 		BoardVo boardVo = new BoardVo();
 		
 		boardVo = boardService.selectBoard(boardType,boardNum);
-		
+		System.out.println("____________View____________________");
+		System.out.println("boardVo.getCreator"+ boardVo.getCreator());
+		System.out.println("____________View____________________");
 		int page = 1;
 		model.addAttribute("boardType", boardType);
 		model.addAttribute("boardNum", boardNum);
@@ -106,8 +115,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/boardWrite.do", method = RequestMethod.GET)
-	public String boardWrite(Locale locale, Model model) throws Exception{
-		
+	public String boardWrite(Locale locale, Model model, HttpServletRequest req) throws Exception{
+		HttpSession session = req.getSession();
+		System.out.println("_______________________________________________________");
+		System.out.println("AAAAAAAAAAAAAAAAAA BoardWrite : " + session.getAttribute("login"));
 		List<MenuVo> menuList = new ArrayList<MenuVo>();
 		menuList = boardService.SelectMenuList("menu");
 		model.addAttribute("menuList", menuList);
@@ -121,8 +132,10 @@ public class BoardController {
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
-	
-		
+		System.out.println("___________boardWrite____________");
+		System.out.println("BoardVo : "+boardVo);
+		System.out.println("BoardVo.getCreator : "+boardVo.getCreator());
+		System.out.println("___________boardWrite____________");
 		int num = boardVo.getBoardVoList().size();
 		int check = 0;
 		
