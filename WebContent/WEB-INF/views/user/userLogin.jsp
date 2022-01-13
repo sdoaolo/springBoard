@@ -19,7 +19,7 @@
 			var param = $frm.serialize();
 			
 			$j.ajax({
-			    url : "/board/userLoginAction.do",
+			    url : "/user/userLoginAction.do",
 			    dataType: "json",
 			    type: "POST",
 			    data : param,

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,7 +47,7 @@ public class UserController {
 		
 		return "user/userJoin";
 	}
-	@RequestMapping(value = "/board/userJoinAction.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/userJoinAction.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String userJoinAction(Locale locale,UserVo userVo) throws Exception{
 		
@@ -60,7 +61,7 @@ public class UserController {
 		return callbackMsg;
 	}
 	
-	@RequestMapping(value = "/board/userCheck.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/userCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String userCheck(Locale locale,UserVo userVo) throws Exception{
 		
@@ -82,7 +83,7 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value = "/board/userLoginAction.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/userLoginAction.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String userLoginAction(Locale locale,HttpServletRequest req, UserVo userVo) throws Exception{
 		
@@ -101,17 +102,33 @@ public class UserController {
 		
 		
 		HttpSession session = req.getSession();
-
 		if (loginVo == null) {
 			session.setAttribute("login", null);
 		}
 		else {
 			session.setAttribute("login", loginVo);
-		}		
+		}
 		
 		System.out.println("testtttttttttttttttttttttttttttttt");
 		System.out.println("session'login' " + session.getAttribute("login"));		
 		System.out.println("testtttttttttttttttttttttttttttttt");
 		return callbackMsg;
 	}
+	@RequestMapping(value = "/user/userLogout.do", method = RequestMethod.GET)
+	@ResponseBody 
+		public String userLogout(Locale locale, HttpServletRequest req,Model model) throws Exception{
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		//일단 session 로그인 정보를 null로 바꿔주고,
+		HttpSession session = req.getSession();
+		session.setAttribute("login", null);
+		result.put("success", (session.getAttribute("login") == null)?"Y":"N");
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("callbackMsg::"+callbackMsg);
+		return callbackMsg;
+	}	
+	
 }

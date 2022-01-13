@@ -54,8 +54,25 @@
 			    }
 			});
 		});
+		
 		$j("#Logout").on("click",function(){
-			//sessiion 없어지게..?
+			//sessiion 없어지게 해야하는데 데이터가 움직일 필요는 없으니 view delete랑 비슷하게 해줌 됨.
+			$j.ajax({
+			    url : "/user/userLogout.do",
+			    dataType: "json",
+			    type: "GET",
+			    success: function(data, textStatus, jqXHR)
+			    {	
+			    	if(data.success == "Y"){
+			    		alert("로그아웃 되었습니다.")
+			    	}
+					location.href = "/board/boardList.do"; 
+			    },
+			    error: function (jqXHR, textStatus, errorThrown)
+			    {
+			    	alert("실패");
+			    }
+			});
 		});
 	});
 

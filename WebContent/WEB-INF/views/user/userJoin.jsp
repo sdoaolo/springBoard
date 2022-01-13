@@ -71,7 +71,7 @@
 				var param = $frm.serialize();
 				
 				$j.ajax({
-				    url : "/board/userJoinAction.do",
+				    url : "/user/userJoinAction.do",
 				    dataType: "json",
 				    type: "POST",
 				    data : param,
@@ -105,7 +105,7 @@
 			console.log("test: "+ param);
 			
 			$j.ajax({
-			    url : "/board/userCheck.do",
+			    url : "/user/userCheck.do",
 			    dataType: "json",
 			    type: "POST",
 			    data : param,
