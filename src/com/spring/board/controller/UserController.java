@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,9 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.board.service.UserService;
 import com.spring.board.service.boardService;
 import com.spring.board.vo.UserVo;
-import com.spring.board.vo.BoardVo;
 import com.spring.board.vo.MenuVo;
-import com.spring.board.vo.PageVo;
 import com.spring.common.CommonUtil;
 
 
@@ -33,7 +30,6 @@ public class UserController {
 	
 	@Autowired 
 	boardService boardService;
-	
 	
 	@RequestMapping(value = "/user/userJoin.do", method = RequestMethod.GET)
 	public String userJoin(Locale locale, Model model) throws Exception{
@@ -81,7 +77,6 @@ public class UserController {
 		
 		return "user/userLogin";
 	}
-	
 
 	@RequestMapping(value = "/user/userLoginAction.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -90,9 +85,7 @@ public class UserController {
 		HashMap<String, UserVo> result = new HashMap<String, UserVo>();
 		CommonUtil commonUtil = new CommonUtil();
 		
-		System.out.println("jsp to controller " + userVo.getUserId());
-		System.out.println("jsp to controller " + userVo.getUserPw());
-		
+		//데이터 변환해서 비교를 하긴한다..>> pw 바꾸는 거 나중에 사용한다. 
 		UserVo loginVo;
 		loginVo = userService.selectUser(userVo.getUserId(),userVo.getUserPw());
 		
@@ -109,11 +102,9 @@ public class UserController {
 			session.setAttribute("login", loginVo);
 		}
 		
-		System.out.println("testtttttttttttttttttttttttttttttt");
-		System.out.println("session'login' " + session.getAttribute("login"));		
-		System.out.println("testtttttttttttttttttttttttttttttt");
 		return callbackMsg;
 	}
+	
 	@RequestMapping(value = "/user/userLogout.do", method = RequestMethod.GET)
 	@ResponseBody 
 		public String userLogout(Locale locale, HttpServletRequest req,Model model) throws Exception{

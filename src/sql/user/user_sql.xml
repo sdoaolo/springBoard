@@ -71,7 +71,6 @@
         )
     </select>
     
-     
     <select id="userUpdate" parameterType="com.spring.board.vo.UserVo">
     <!--가변적인 내용 유저가 변경한 내용만 여기서 업데이트 해줘야함.  -->
  		<!-- 

@@ -49,7 +49,7 @@ $j(document).ready(function(){
 					Comment
 					</td>
 					<td>
-					${board.boardComment}
+					${board.boardComment}	
 					</td>
 				</tr>
 				<tr>
@@ -58,6 +58,7 @@ $j(document).ready(function(){
 					</td>
 					<td>
 					${board.creator}
+					
 					</td>
 				</tr>
 			</table>

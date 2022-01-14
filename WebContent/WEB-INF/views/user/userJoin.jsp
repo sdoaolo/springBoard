@@ -11,55 +11,121 @@
 	
 	$j(document).ready(function(){
 		
-		function checkValid(){
-			var postRegExp = /^\d{3}-\d{3}$/;
-			var phoneRegExp = /^\d{4}$/;
+		//입력 제한 (name:한글/id:영어,숫자/phone:숫자)
+		function onlyInput(t, regexp, type){
+			v = t.val();
+			if (regexp.test(v)) {
+                alert(type+"만 입력가능 합니다.");
+                t.val(v.replace(regexp, ''));
+            }
+		}
+		 $j("#name").keyup(function (event) {
+            regexp = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+            onlyInput( $j(this),regexp,"한글" );
+            
+            if ($j(this).val().length > $j(this).attr('maxlength')) { 
+				alert('제한길이 초과'); 
+				$j(this).val($j(this).val().substr(0, $j(this).attr('maxlength'))); 
+			}
+        });
 			
-			var postNo = $j('input[name="userAddr1"]').val();
-			var phone2 = $j('input[name="userPhone2"]').val();
-			var phone3 = $j('input[name="userPhone3"]').val();
+		$j("#id").keyup(function(event){
+			regexp = /[^a-z0-9]/gi;
+			onlyInput( $j(this),regexp,"영어, 숫자" );
+			idCheckComplete = false
+		});
+
+		//숫자만 입력, 번호 입력 4자리시 focus 이동
+		$j('#phone-2, #phone-3').keyup(function (event) {
+            regexp = /[^0-9]/gi;
+            onlyInput( $j(this),regexp,"숫자" );
+            var mch = $j(this).val().match(/[0-9]/g)
+            if( mch != null && mch.length == 4 )
+            {
+          	  $j(this).next('input').focus();
+            }
+        });
+		
+		//postNo 자동 하이픈
+		$j('input[name="userAddr1"]').keyup(function (event) {
+			regexp = /[^\d-]/gi;
+			var oldData = $j(this).val().replace(/[^0-9]/gi, "");
+			var newData = oldData.replace(/([0-9]{3})([0-9]{3})$/,"$1-$2").replace("-", "-"); 
+			$j(this).val(newData);
+		});
+		
+
+		//실시간 pw check 감지 후 피드백
+		$j("#pwCheck, #pw").on("change keyup paste", function(){
+			var pwCheck = $j("#pwCheck").val();
+			var pw = $j("#pw").val();
+			if(pw != pwCheck){
+				$j('#pwcheckMsg').text("비밀번호가 일치하지 않습니다."); //
+			}else{
+				$j('#pwcheckMsg').text("비밀번호가 일치합니다.")
+			}
+		})		
+
+		//input 값 유효성 확인
+		function checkValid(){
+			
+			var validChk=0;
 			
 			var pw = $j("#pw").val();
 			var pwCheck = $j("#pwCheck").val();
 			
-			var validChk=0;
+			var phoneRegExp = /^\d{4}$/;	
+			var phone2 = $j('input[name="userPhone2"]').val();
+			var phone3 = $j('input[name="userPhone3"]').val();
 			
-			//postNo, phone 형식 체크
-			if(postNo.length > 0){
-				if(!postRegExp.test(postNo)) {            
-	           		alert("postNo의 형식은 숫자로 xxx-xxx입니다.");
-	           		validChk += 1;
-				}
-			}
-			if(!phoneRegExp.test(phone2) || !phoneRegExp.test(phone3)){
-				alert("phone은 4자리 숫자로 입력해주세요");
-				validChk += 1;
-			}
-			
-			//비밀번호 6~12자리, 일치여부 확인 
-			if(pw.length < 6 || pw.length > 12){
-				alert("비밀번호는 6~12 자리 이내로 입력해주세요");
-				validChk += 1;
-			}else if(pw != pwCheck){
-				alert("비밀번호가 일치하지 않습니다.");ㅌ
-				validChk += 1;
-			}
+			var postRegExp = /^\d{3}-\d{3}$/;
+			var postNo = $j('input[name="userAddr1"]').val();
 			
 			//필수값 체크
 			$j(".necVal").each(function(){
 				if($j(this).val()== ""){
 					alert($j(this).attr('id') + " : 필수 값입니다");
 					validChk += 1;
+					$j(this).focus();
 				}
 			});
 			
+			//비밀번호 6~12자리, 일치여부 확인 
+			if(pw.length < 6 || pw.length > 12){
+				alert("비밀번호는 6~12 자리 이내로 입력해주세요");
+				validChk += 1;
+				$j("#pw").focus();
+			}else if(pw != pwCheck){
+				validChk += 1;
+				alert("비밀번호가 일치하지 않습니다.");
+				$j("#pwCheck").focus();
+			}
+			
+			// phone 형식 체크
+			if(!phoneRegExp.test(phone2)){
+				alert("phone은 4자리 숫자로 입력해주세요");
+				validChk += 1;
+				$j('input[name="userPhone2"]').focus();
+			}else if(!phoneRegExp.test(phone3)){
+				alert("phone은 4자리 숫자로 입력해주세요");
+				validChk += 1;
+				$j('input[name="userPhone3"]').focus();
+			}
+			
+			//postNo 형식 체크
+			if(postNo.length > 0){
+				if(!postRegExp.test(postNo)) {            
+	           		alert("postNo는 6자리 숫자로 입력해주세요.");
+	           		validChk += 1;
+	           		$j('input[name="userAddr1"]').focus();
+				}
+			}
 			return validChk;
 		}
 		
 		
 		$j("#join").on("click",function(){
 			var check = checkValid();
-			
 			if(check == 0){
 				dataSubmit();
 			}
@@ -77,7 +143,7 @@
 				    data : param,
 				    success: function(data, textStatus, jqXHR)
 				    {
-						alert("Join 후 AJAX success ");
+						alert("회원가입 완료");
 						
 						console.log(data.success);
 						
@@ -101,33 +167,33 @@
 			
 			var $frm = $j('.userJoin :input[name="userId"]');
 			var param = $frm.serialize();
-
-			console.log("test: "+ param);
 			
-			$j.ajax({
-			    url : "/user/userCheck.do",
-			    dataType: "json",
-			    type: "POST",
-			    data : param,
-			    success: function(data, textStatus, jqXHR)
-			    {
-					console.log(data.success);
-					
-					if(data.success == "NotUnique"){
-						alert("이미 존재하는 아이디 입니다.");
-					}else{
-						alert("사용가능한 아이디 입니다.");
-						idCheckComplete = true;
-					}
-			    },
-			    error: function (jqXHR, textStatus, errorThrown)
-			    {
-			    	alert("실패");
-			    }
-			});
-		});
-
-		
+			console.log("idcheck: " ,param);
+			
+			if(param != "userId="){
+				$j.ajax({
+				    url : "/user/userCheck.do",
+				    dataType: "json",
+				    type: "POST",
+				    data : param,
+				    success: function(data, textStatus, jqXHR)
+				    {
+						if(data.success == "NotUnique"){
+							alert("이미 존재하는 아이디 입니다.");
+						}else{
+							alert("사용가능한 아이디 입니다.");
+							idCheckComplete = true;
+						}
+				    },
+				    error: function (jqXHR, textStatus, errorThrown)
+				    {
+				    	alert("실패");
+				    }
+				});
+			}else {
+				alert("id를 입력해주세요");
+			}	
+		});	
 	});
 
 </script>
@@ -157,7 +223,7 @@
 						pw
 						</td>
 						<td width="300">
-						<input name="userPw" type="text" size="20"  class="necVal"  id="pw" value="${user.userPw}"> 
+						<input name="userPw" type="password" size="20"  class="necVal"  id="pw" value="${user.userPw}"> 
 						</td>
 					</tr>
 					<tr>
@@ -165,7 +231,8 @@
 						pw check
 						</td>
 						<td width="300">
-						<input name="userPwCheck" type="text"  class="necVal" id="pwCheck" size="20" > 
+						<input name="userPwCheck" type="password"  class="necVal" id="pwCheck" size="20" > 
+						<p style="color:red; font-size:5px;" id = "pwcheckMsg" ></p>
 						</td>
 					</tr>
 					<tr>
@@ -173,7 +240,7 @@
 						name
 						</td>
 						<td width="300">
-						<input name="userName" type="text" size="20"   class="necVal" id="name" value="${user.userName}"> 
+						<input name="userName" type="text" size="20"   class="necVal" id="name" value="${user.userName}" maxlength='5'> 
 						</td>
 					</tr>
 					<tr>
@@ -187,7 +254,7 @@
 								</c:forEach>
 							</select>
 							-
-							<input name="userPhone2" type="text" size="4" class="necVal"  id="phone-2"maxlength='4' > 
+							<input name="userPhone2" type="text" size="4" class="necVal"  id="phone-2" maxlength='4' > 
 							-
 							<input name="userPhone3" type="text" size="4"  class="necVal" id="phone-3" maxlength='4' > 
 						</td>
@@ -197,7 +264,7 @@
 						postNo
 						</td>
 						<td width="300">
-						<input name="userAddr1" type="text" size="20" > 
+						<input name="userAddr1" type="text" size="20" maxlength='7' > 
 						</td>
 					</tr>
 					<tr>

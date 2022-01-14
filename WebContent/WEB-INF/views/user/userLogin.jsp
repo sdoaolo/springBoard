@@ -73,7 +73,7 @@
 						pw
 						</td>
 						<td width="300">
-						<input name="userPw" type="text" size="20" value="${user.userPw}"> 
+						<input name="userPw" type="password" size="20" value="${user.userPw}"> 
 						</td>
 					</tr>
 				</table>

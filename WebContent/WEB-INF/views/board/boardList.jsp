@@ -134,7 +134,7 @@
 						<a href ="/board/boardWrite.do">±Û¾²±â</a>
 						<input type="button" id="Logout" value="Logout" >
 					</c:when>
-				</c:choose>
+			</c:choose>
 		</td>
 	</tr>	
 	<tr>

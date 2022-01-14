@@ -54,8 +54,6 @@
 			});
 		});
 		
-		
-		
 		function addRow(i){
 			var addText = '<tr>'+
 			'<td width="120" align="center">'+
@@ -156,12 +154,11 @@
 							</c:when>
 							<c:when test="${login != null}">
 								<a>${login.userName}</a>
-								<input name="boardVoList[0].creator" type="hidden" value=${login.userName}>
+								<input name="boardVoList[0].creator" type="hidden" value=${login.userId}>
 							</c:when>
 						</c:choose> 
 						</td>
 					</tr>
-					
 				</table>
 			</td>
 		</tr>

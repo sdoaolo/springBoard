@@ -25,9 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.board.HomeController;
 import com.spring.board.service.boardService;
+import com.spring.board.service.UserService;
 import com.spring.board.vo.MenuVo;
 import com.spring.board.vo.BoardVo;
 import com.spring.board.vo.PageVo;
+import com.spring.board.vo.UserVo;
 import com.spring.common.CommonUtil;
 
 @Controller
@@ -35,6 +37,9 @@ public class BoardController {
 	
 	@Autowired 
 	boardService boardService;
+	
+	@Autowired 
+	UserService userService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -98,6 +103,10 @@ public class BoardController {
 			,@PathVariable("boardType")String boardType
 			,@PathVariable("boardNum")int boardNum) throws Exception{
 		
+//		UserVo userVo;
+//		loginVo = userService.selectUser(userVo.getUserId(),userVo.getUserPw());
+		
+		
 		BoardVo boardVo = new BoardVo();
 		
 		boardVo = boardService.selectBoard(boardType,boardNum);
@@ -128,21 +137,29 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/boardWriteAction.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String boardWriteAction(Locale locale,BoardVo boardVo) throws Exception{
+	public String boardWriteAction(Locale locale,BoardVo boardVo,HttpServletRequest req) throws Exception{
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
-		System.out.println("___________boardWrite____________");
-		System.out.println("BoardVo : "+boardVo);
-		System.out.println("BoardVo.getCreator : "+boardVo.getCreator());
-		System.out.println("___________boardWrite____________");
+		
 		int num = boardVo.getBoardVoList().size();
 		int check = 0;
 		
+		HttpSession session = req.getSession();
+		
+		String creator;
 		for(int i=0;i<num;i++) {
 			if(boardVo.getBoardVoList().get(i).getBoardTitle() != null) {
 				BoardVo Bvo= new BoardVo();
 				Bvo = boardVo.getBoardVoList().get(i);
+				if (session.getAttribute("login")== null) {
+					creator = "";
+				}else {
+					System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+					System.out.println(boardVo.getBoardVoList().get(0).getCreator());
+					creator = boardVo.getBoardVoList().get(0).getCreator();
+				}
+				Bvo.setCreator(creator);
 				
 				//boardType에는 code Id가 들어가야하는데 codeId는 jsp에서 List에 menuId라는 변수로 들어가있다. 
 				//따라서 select의 value를 list.menuId로 바로 바꿔주면 된다
