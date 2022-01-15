@@ -54,13 +54,15 @@
     	
     <select id="boardView" parameterType="com.spring.board.vo.BoardVo" resultMap="boardVo">
     	SELECT
-        	BOARD_TYPE
-			,BOARD_NUM
-			,BOARD_TITLE
-			,BOARD_COMMENT
-			,CREATOR
+        	B.BOARD_TYPE AS BOARD_TYPE
+			,B.BOARD_NUM AS BOARD_NUM
+			,B.BOARD_TITLE AS BOARD_TITLE
+			,B.BOARD_COMMENT AS BOARD_COMMENT
+			,U.USER_NAME AS CREATOR
 		FROM
-			BOARD
+			BOARD B
+        JOIN USER_INFO U
+        ON B.CREATOR = U.USER_ID 
     	WHERE 	BOARD_TYPE = #{boardType}
     	AND 	BOARD_NUM  = #{boardNum}
     </select>	

@@ -214,7 +214,7 @@
 						id
 						</td>
 						<td width="300">
-						<input name="userId" type="text" size="15" class="necVal" id="id" value="${user.userId}"> 
+						<input name="userId" type="text" size="15" class="necVal" id="id" maxlength="15" value="${user.userId}"> 
 						<input id="checkIdOverlap" type="button" size="15" value="중복확인"> 
 						</td>
 					</tr>
@@ -272,7 +272,7 @@
 						address
 						</td>
 						<td width="300">
-						<input name="userAddr2" type="text" size="20" value="${user.userAddr1}"> 
+						<input name="userAddr2" type="text" size="20"  maxlength='50' value="${user.userAddr1}"> 
 						</td>
 					</tr>
 					<tr>
@@ -280,7 +280,7 @@
 						company
 						</td>
 						<td width="300">
-						<input name="userCompany" type="text" size="20" value="${user.userAddr1}"> 
+						<input name="userCompany" type="text" size="20" maxlength='20' value="${user.userAddr1}"> 
 						</td>
 					</tr>
 					
