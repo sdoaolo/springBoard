@@ -56,11 +56,16 @@ $j(document).ready(function(){
 					<td align="center">
 					Writer
 					</td>
-					<td>
-					${board.creator}
-					
-					</td>
-				</tr>
+						<td>
+							<c:choose>
+								<c:when test="${board.boardType == 'a03'}">
+									¿Õ∏Ì
+								</c:when>
+								<c:when test="${board.boardType != 'a03'}">
+									${board.creator}
+								</c:when>
+							</c:choose></td>
+					</tr>
 			</table>
 		</td>
 	</tr>

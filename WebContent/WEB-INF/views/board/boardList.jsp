@@ -128,7 +128,6 @@
 		<td align="right">
 			<c:choose>
 					<c:when test="${login == null}">
-						<a href ="/board/boardWrite.do">글쓰기</a>
 					</c:when>
 					<c:when test="${login != null}">
 						<a href ="/board/boardWrite.do">글쓰기</a>

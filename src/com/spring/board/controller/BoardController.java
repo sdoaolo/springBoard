@@ -110,9 +110,9 @@ public class BoardController {
 		BoardVo boardVo = new BoardVo();
 		
 		boardVo = boardService.selectBoard(boardType,boardNum);
-		System.out.println("____________View____________________");
-		System.out.println("boardVo.getCreator"+ boardVo.getCreator());
-		System.out.println("____________View____________________");
+		//System.out.println("____________View____________________");
+		//System.out.println("boardVo.getCreator"+ boardVo.getCreator());
+		//System.out.println("____________View____________________");
 		int page = 1;
 		model.addAttribute("boardType", boardType);
 		model.addAttribute("boardNum", boardNum);
