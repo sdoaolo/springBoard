@@ -25,10 +25,16 @@
 			
 			console.log("param",param);
 			var splitParam = param.split('&');
-			//console.log("len : " + splitParam.length);
+			
+			console.log("len : " + splitParam.length);
 			
 			for(var i = 0 ; i< splitParam.length;i++){
-				if(splitParam[i] == "boardTitle=" || splitParam[i] == "boardComment=" ){
+				
+				var strArray = splitParam[i].split('.');
+				console.log("arr0 ",strArray[0]);
+				console.log("arr1 ",strArray[1]);
+				
+				if(strArray[1] == "boardTitle=" || strArray[1] == "boardComment=" ){
 					alert("ºóÄ­ ¾øÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä");
 					return false;
 				}
