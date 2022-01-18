@@ -264,7 +264,7 @@
 						postNo
 						</td>
 						<td width="300">
-						<input name="userAddr1" type="text" size="20" maxlength='7' > 
+						<input name="userAddr1" type="text" size="20" maxlength='6' > 
 						</td>
 					</tr>
 					<tr>

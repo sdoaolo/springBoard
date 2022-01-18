@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,11 @@ public class UserController {
 	
 	@Autowired 
 	boardService boardService;
+	
+	
+	//@Inject
+	//BCryptPasswordEncoder pwdEncoder;
+	//bcryptPasswordEncoder pwdEncoder;
 	
 	@RequestMapping(value = "/user/userJoin.do", method = RequestMethod.GET)
 	public String userJoin(Locale locale, Model model) throws Exception{
