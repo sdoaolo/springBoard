@@ -1,5 +1,5 @@
 # spring Board 
-### Toy Project 
+### Toy Project
 
 #### Use 
 - IDE : Eclipse, SQLDeveloper
@@ -14,13 +14,14 @@
 - Login, Join button
 - Total number of posts
 - Login (X) :  only read
-- :ogin (O) : can write & logout
+- Login (O) : can write & logout
 
 ##### Join 
 - Check ID duplicate
 - Check required values
 - Limit input format
 - Check format 
+- Check password match
 
 ##### Login
 - Use http session
@@ -43,3 +44,12 @@
 
 ##### Delete
 - Deleting a post when the delete button is clicked
+
+
+
+
+
+## ▶▶ Demo Video
+### https://youtu.be/7Ru0q_PHoIw
+
+![image](https://user-images.githubusercontent.com/48430781/150737843-648f28be-6813-425c-99d6-c6268dbf0a96.png)
